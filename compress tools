@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Universal File Compressor - Compress Images, Documents & More</title>
+    <meta name="description" content="Free online file compressor for images, PDFs, Word docs, Excel sheets, and PowerPoint presentations. Reduce file sizes while maintaining quality.">
+    <meta name="keywords" content="file compressor, image compression, PDF compressor, document compressor, reduce file size">
+    
+    <!-- SEO Meta Tags -->
+    <link rel="canonical" href="https://yourdomain.com/compressor">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Universal File Compressor">
+    <meta property="og:description" content="Free online file compression tool for all document types">
+    
+    <!-- Styles -->
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background: #f8f9fa;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: 3fr 1fr;
+            gap: 30px;
+        }
+
+        .main-content {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+        }
+
+        .upload-section {
+            border: 2px dashed var(--primary-color);
+            padding: 40px;
+            text-align: center;
+            margin: 20px 0;
+            position: relative;
+        }
+
+        #fileInput {
+            position: absolute;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            cursor: pointer;
+        }
+
+        .file-details {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 5px;
+        }
+
+        .progress-bar {
+            height: 20px;
+            background: #eee;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+
+        .progress {
+            width: 0;
+            height: 100%;
+            background: var(--secondary-color);
+            transition: width 0.3s ease;
+        }
+
+        .ad-unit {
+            background: #fff;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+            border-radius: 8px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+                padding: 10px;
+            }
+            
+            .upload-section {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Ad Unit -->
+    <div class="ad-unit">
+        <!-- Google AdSense Header -->
+        <ins class="adsbygoogle"
+            style="display:block"
+            data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+            data-ad-slot="XXXXXXXXXX"
+            data-ad-format="auto"
+            data-full-width-responsive="true"></ins>
+        <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
+
+    <main class="container">
+        <div class="main-content">
+            <h1>Universal File Compressor</h1>
+            <p class="subtitle">Reduce file sizes without quality loss</p>
+
+            <div class="upload-section">
+                <input type="file" id="fileInput" accept="image/*,.pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx">
+                <p>Drag & drop files or click to upload</p>
+                <p>Supported formats: JPG, PNG, PDF, DOC, XLS, PPT</p>
+            </div>
+
+            <div class="file-details">
+                <h3>Selected File:</h3>
+                <p id="fileName">No file selected</p>
+                <p id="fileSize">-</p>
+            </div>
+
+            <div class="compression-options">
+                <label>Compression Level:</label>
+                <select id="compressionLevel">
+                    <option value="0.7">Medium (Recommended)</option>
+                    <option value="0.5">High Compression</option>
+                    <option value="0.9">Low Compression</option>
+                </select>
+            </div>
+
+            <div class="progress-bar">
+                <div class="progress" id="progress"></div>
+            </div>
+
+            <button id="compressBtn" class="btn">Compress File</button>
+
+            <div class="download-section" id="downloadSection" style="display: none;">
+                <h3>Compressed File:</h3>
+                <p id="compressedSize"></p>
+                <a id="downloadLink" class="btn">Download</a>
+            </div>
+        </div>
+
+        <!-- Sidebar Ad Unit -->
+        <aside class="sidebar">
+            <div class="ad-unit">
+                <!-- Google AdSense Sidebar -->
+                <ins class="adsbygoogle"
+                    style="display:block"
+                    data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+                    data-ad-slot="XXXXXXXXXX"
+                    data-ad-format="auto"
+                    data-full-width-responsive="true"></ins>
+                <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+        </aside>
+    </main>
+
+    <!-- Footer Ad Unit -->
+    <div class="ad-unit">
+        <!-- Google AdSense Footer -->
+        <ins class="adsbygoogle"
+            style="display:block"
+            data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+            data-ad-slot="XXXXXXXXXX"
+            data-ad-format="auto"
+            data-full-width-responsive="true"></ins>
+        <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
+
+    <script>
+        // Basic Image Compression (Client-side example)
+        async function compressImage(file, quality) {
+            return new Promise((resolve) => {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const img = new Image();
+                    img.onload = function() {
+                        const canvas = document.createElement('canvas');
+                        const ctx = canvas.getContext('2d');
+                        
+                        canvas.width = img.width;
+                        canvas.height = img.height;
+                        ctx.drawImage(img, 0, 0);
+                        
+                        canvas.toBlob((blob) => {
+                            resolve(new File([blob], file.name, {
+                                type: 'image/jpeg',
+                                lastModified: Date.now()
+                            }));
+                        }, 'image/jpeg', quality);
+                    };
+                    img.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            });
+        }
+
+        // File Input Handler
+        document.getElementById('fileInput').addEventListener('change', async (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            // Update file details
+            document.getElementById('fileName').textContent = file.name;
+            document.getElementById('fileSize').textContent = 
+                `Original Size: ${(file.size / 1024).toFixed(2)} KB`;
+        });
+
+        // Compression Handler
+        document.getElementById('compressBtn').addEventListener('click', async () => {
+            const file = document.getElementById('fileInput').files[0];
+            const quality = parseFloat(document.getElementById('compressionLevel').value);
+
+            if (!file) {
+                alert('Please select a file first!');
+                return;
+            }
+
+            // Show progress
+            const progressBar = document.getElementById('progress');
+            progressBar.style.width = '30%';
+
+            try {
+                let compressedFile;
+                if (file.type.startsWith('image/')) {
+                    compressedFile = await compressImage(file, quality);
+                } else {
+                    // For other file types, you would need server-side processing
+                    alert('Document compression requires server-side processing');
+                    return;
+                }
+
+                progressBar.style.width = '100%';
+                
+                // Show download section
+                document.getElementById('downloadSection').style.display = 'block';
+                document.getElementById('compressedSize').textContent = 
+                    `Compressed Size: ${(compressedFile.size / 1024).toFixed(2)} KB`;
+                
+                const downloadLink = document.getElementById('downloadLink');
+                downloadLink.href = URL.createObjectURL(compressedFile);
+                downloadLink.download = `compressed_${file.name}`;
+            } catch (error) {
+                console.error('Compression error:', error);
+                alert('Error compressing file');
+            }
+        });
+    </script>
+
+    <!-- SEO Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Universal File Compressor",
+        "description": "Online tool for compressing images and documents",
+        "applicationCategory": "Utility",
+        "operatingSystem": "All",
+        "offers": {
+            "@type": "Offer",
+            "price": "0.00",
+            "priceCurrency": "USD"
+        }
+    }
+    </script>
+</body>
+</html>
