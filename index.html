@@ -3,296 +3,177 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FileZip Pro - Universal File Compression Solution</title>
-    <meta name="description" content="Compress images, documents, spreadsheets, and presentations instantly. Reduce file sizes while maintaining quality with our advanced compression algorithms.">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>File Compressor Tools</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
     <style>
         :root {
-            --primary: #6C5CE7;
-            --secondary: #A8A4FF;
-            --accent: #FF7675;
-            --background: #F8F9FF;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', sans-serif;
+            --primary: #5243AA;
+            --accent: #f39c12;
+            --bg: #f4f4f9;
+            --card-bg: #fff;
+            --shadow: rgba(0, 0, 0, 0.1);
         }
 
         body {
-            background: var(--background);
-            color: #2D3436;
-        }
-
-        .header {
-            background: linear-gradient(135deg, var(--primary), #4B3F72);
-            color: white;
-            padding: 2rem 1rem;
-            text-align: center;
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--bg);
+            color: #333;
         }
 
         .main-container {
+            padding: 2rem;
             max-width: 1200px;
-            margin: 2rem auto;
-            padding: 0 1rem;
-        }
-
-        .upload-section {
-            background: white;
-            border-radius: 20px;
-            padding: 3rem;
-            text-align: center;
-            box-shadow: 0 10px 30px rgba(108,92,231,0.1);
-            margin: 2rem 0;
-            border: 3px dashed var(--secondary);
-            transition: 0.3s;
-        }
-
-        .upload-section:hover {
-            transform: translateY(-5px);
-            border-color: var(--primary);
+            margin: auto;
         }
 
         .tools-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-            margin: 3rem 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: center;
         }
 
         .tool-card {
-            background: white;
+            background: var(--card-bg);
+            border-radius: 12px;
             padding: 2rem;
-            border-radius: 15px;
+            width: 260px;
             text-align: center;
-            transition: 0.3s;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px var(--shadow);
         }
 
         .tool-card:hover {
-            transform: translateY(-10px);
+            transform: translateY(-5px);
             box-shadow: 0 15px 40px rgba(108,92,231,0.15);
         }
 
         .tool-icon {
             font-size: 2.5rem;
-            margin-bottom: 1rem;
             color: var(--primary);
+            margin-bottom: 1rem;
         }
 
-        .file-dropzone {
-            border: 2px dashed var(--secondary);
-            padding: 4rem 2rem;
-            border-radius: 15px;
-            margin: 2rem 0;
-            position: relative;
+        .tool-card h3 {
+            margin: 0.5rem 0;
+        }
+
+        .tool-card p {
+            font-size: 0.9rem;
+            color: #666;
         }
 
         .compress-btn {
+            display: inline-block;
+            margin-top: 1.2rem;
+            padding: 0.8rem 1.8rem;
             background: var(--primary);
-            color: white;
-            padding: 1rem 3rem;
-            border: none;
-            border-radius: 30px;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: 0.3s;
-            margin-top: 2rem;
+            color: #fff;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
 
-        .compress-btn:hover {
-            background: #5243AA;
-            transform: scale(1.05);
+        .compress-btn::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.3);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
         }
 
-        .feature-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin: 4rem 0;
+        .tool-card:hover .compress-btn {
+            background: #41368f;
+            transform: translateY(-2px);
+        }
+
+        .tool-card:hover .compress-btn::after {
+            transform: scaleX(1);
         }
 
         .feature-card {
+            background: #fff;
             padding: 2rem;
-            background: rgba(108,92,231,0.05);
-            border-radius: 15px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px var(--shadow);
+            margin-top: 2rem;
             text-align: center;
         }
 
-        .ad-unit {
-            background: white;
-            padding: 2rem;
-            border-radius: 15px;
-            margin: 2rem 0;
-            text-align: center;
+        .feature-card a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            display: block;
+            margin-top: 1rem;
+        }
+
+        .feature-card a:hover {
+            text-decoration: underline;
         }
 
         @media (max-width: 768px) {
-            .upload-section {
-                padding: 2rem;
-            }
-            
-            .file-dropzone {
-                padding: 2rem 1rem;
+            .tool-card {
+                width: 100%;
             }
         }
     </style>
 </head>
 <body>
-    <header class="header">
-        <h1>FileZip Pro</h1>
-        <p>Smart Compression for All File Types</p>
-    </header>
-
     <main class="main-container">
-        <!-- File Upload Section -->
-        <section class="upload-section">
-            <div class="file-dropzone" id="dropZone">
-                <i class="fas fa-cloud-upload-alt fa-3x" style="color: var(--primary);"></i>
-                <h2 style="margin: 1rem 0;">Drag & Drop Files Here</h2>
-                <p>or</p>
-                <button class="compress-btn" onclick="document.getElementById('fileInput').click()">
-                    Browse Files
-                </button>
-                <input type="file" id="fileInput" hidden accept="image/*,.pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx">
-            </div>
-        </section>
-
-        <!-- Supported Tools Grid -->
         <section class="tools-grid">
-    <div class="tool-card">
-        <i class="tool-icon fas fa-file-image"></i>
-        <h3>Image Compression</h3>
-        <p>JPG, PNG, GIF, WEBP</p>
-        <a href="compress-tools.html" class="compress-btn" style="margin-top: 1rem; text-decoration: none;">
-            Compress Now </a>
-    </div>
-           
-        <div class="action-container">
-            <button class="compress-btn" disabled>
-                <span class="btn-text">Compress Now</span>
-                <div class="loading-spinner" aria-hidden="true"></div>
-            </button>
-            <a href="compress-tools.html" class="info-link">
-                Learn more about compression
-            </a>
-        </div>
-       
+            <!-- Tool Cards -->
+            <div class="tool-card">
+                <i class="tool-icon fas fa-file-image"></i>
+                <h3>Image Compression</h3>
+                <p>JPG, PNG, GIF, WEBP</p>
+                <a href="compress-tools/images.html" class="compress-btn">Optimize Now</a>
+            </div>
 
-           <div class="tool-card">
-    <i class="tool-icon fas fa-file-pdf"></i>
-    <h3>PDF Files</h3>
-    <p>PDF, PDF/A</p>
-    <a href="compress-tools.html" class="compress-btn" style="margin-top: 1rem; text-decoration: none;">
-                    Compress Now </a>
-</div>
+            <div class="tool-card">
+                <i class="tool-icon fas fa-file-word"></i>
+                <h3>Word Compression</h3>
+                <p>DOC, DOCX</p>
+                <a href="compress-tools/word.html" class="compress-btn">Reduce Size</a>
+            </div>
 
             <div class="tool-card">
                 <i class="tool-icon fas fa-file-excel"></i>
-                <h3>Excel Sheets</h3>
+                <h3>Excel Compression</h3>
                 <p>XLS, XLSX</p>
-               <a href="compress-tools.html" class="compress-btn" style="margin-top: 1rem; text-decoration: none;">
-                    Compress Now </a> 
+                <a href="compress-tools/excel.html" class="compress-btn">Shrink File</a>
+            </div>
+
+            <div class="tool-card">
+                <i class="tool-icon fas fa-file-pdf"></i>
+                <h3>PDF Compression</h3>
+                <p>PDF Files</p>
+                <a href="compress-tools/pdf.html" class="compress-btn">Compress Now</a>
             </div>
 
             <div class="tool-card">
                 <i class="tool-icon fas fa-file-powerpoint"></i>
-                <h3>Presentations</h3>
+                <h3>PPT Compression</h3>
                 <p>PPT, PPTX</p>
-                <a href="compress-tools.html" class="compress-btn" style="margin-top: 1rem; text-decoration: none;">
-                    Compress Now </a>
+                <a href="compress-tools/ppt.html" class="compress-btn">Minimize Size</a>
             </div>
         </section>
 
-        <!-- Features Section -->
-        <section class="feature-grid">
-            <div class="feature-card">
-                <i class="fas fa-rocket fa-2x" style="color: var(--accent);"></i>
-                <h3>Lightning Fast</h3>
-                <p>Process files in seconds using our optimized algorithms</p>
-            </div>
-
-            <div class="feature-card">
-                <i class="fas fa-shield-alt fa-2x" style="color: var(--accent);"></i>
-                <h3>Secure & Private</h3>
-                <p>Files deleted automatically after 1 hour</p>
-            </div>
-
-            <div class="feature-card">
-                <i class="fas fa-magic fa-2x" style="color: var(--accent);"></i>
-                <h3>Smart Optimization</h3>
-                <p>Automatic quality adjustment based on content</p>
-            </div>
-        </section>
-
-        <!-- Ad Unit -->
-        <div class="ad-unit">
-            <!-- Google AdSense Code -->
-            <ins class="adsbygoogle"
-                style="display:block"
-                data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
-                data-ad-slot="XXXXXXXXXX"
-                data-ad-format="auto"
-                data-full-width-responsive="true"></ins>
-            <script>
-                (adsbygoogle = window.adsbygoogle || []).push({});
-            </script>
+        <!-- Feature Section -->
+        <div class="feature-card">
+            <i class="fas fa-rocket fa-2x" style="color: var(--accent);"></i>
+            <h3>Lightning Fast</h3>
+            <p>Process files in seconds using our optimized algorithms.</p>
+            <a href="/features#speed">Learn More →</a>
         </div>
     </main>
-
-    <script>
-        // Drag & Drop Functionality
-        const dropZone = document.getElementById('dropZone');
-
-        dropZone.ondragover = (e) => {
-            e.preventDefault();
-            dropZone.style.borderColor = 'var(--primary)';
-        };
-
-        dropZone.ondragleave = () => {
-            dropZone.style.borderColor = 'var(--secondary)';
-        };
-
-        dropZone.ondrop = (e) => {
-            e.preventDefault();
-            const files = e.dataTransfer.files;
-            handleFiles(files);
-        };
-
-        document.getElementById('fileInput').onchange = (e) => {
-            handleFiles(e.target.files);
-        };
-
-        function handleFiles(files) {
-            if(files.length > 0) {
-                // Handle file processing
-                console.log('File selected:', files[0]);
-                // Add file processing logic here
-            }
-        }
-
-        // Animate cards on scroll
-        const cards = document.querySelectorAll('.tool-card');
-        
-        const observer = new IntersectionObserver(entries => {
-            entries.forEach(entry => {
-                if(entry.isIntersecting) {
-                    entry.target.style.opacity = 1;
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        });
-
-        cards.forEach(card => {
-            card.style.opacity = 0;
-            card.style.transform = 'translateY(20px)';
-            card.style.transition = 'all 0.4s ease-out';
-            observer.observe(card);
-        });
-    </script>
 </body>
 </html>
