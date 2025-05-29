@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Book2QA | Convert Books to Interactive Q&A</title>
+    <title>Book2QA | Convert Books to Q&A Format</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
     <style>
@@ -131,10 +131,12 @@
             text-decoration: none;
             font-weight: 600;
             transition: var(--transition);
-            box-shadow: 0 6px 20px rgba(67, 97, 238, 0.3);
             display: inline-flex;
             align-items: center;
             gap: 10px;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(67, 97, 238, 0.3);
         }
 
         .cta-button:hover {
@@ -344,332 +346,214 @@
             color: var(--secondary);
         }
 
-        /* How It Works */
-        .how-it-works {
+        /* Conversion Tool */
+        .conversion-tool {
             padding: 100px 0;
             background: linear-gradient(to bottom, #f8fbff, #ffffff);
         }
 
-        .steps {
-            display: flex;
-            justify-content: center;
-            gap: 40px;
-            flex-wrap: wrap;
-            position: relative;
-            margin-top: 50px;
-        }
-
-        .step {
-            flex: 1;
-            min-width: 250px;
-            max-width: 320px;
-            text-align: center;
-            position: relative;
-            padding: 40px 25px;
+        .tool-container {
             background: white;
             border-radius: 20px;
             box-shadow: var(--shadow);
-            z-index: 2;
-            opacity: 0;
-            transform: translateY(50px);
-        }
-
-        .step-number {
-            position: absolute;
-            top: -25px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 50px;
-            height: 50px;
-            background: var(--primary);
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            font-weight: 700;
-            font-size: 1.3rem;
-        }
-
-        .step-icon {
-            font-size: 50px;
-            margin-bottom: 20px;
-            color: var(--primary);
-        }
-
-        .step h3 {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            color: var(--secondary);
-        }
-
-        /* Supported Formats */
-        .formats {
-            padding: 100px 0;
-        }
-
-        .formats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 25px;
+            overflow: hidden;
             max-width: 1000px;
             margin: 0 auto;
         }
 
-        .format-card {
-            background: white;
-            border-radius: 15px;
-            padding: 30px 20px;
+        .tool-header {
+            background: var(--gradient);
+            color: white;
+            padding: 25px 40px;
+        }
+
+        .tool-header h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .tool-steps {
+            display: flex;
+            padding: 20px;
+            background: rgba(67, 97, 238, 0.1);
+        }
+
+        .step-indicator {
+            flex: 1;
             text-align: center;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-            opacity: 0;
-            transform: translateY(30px);
+            padding: 15px;
+            font-weight: 600;
+            position: relative;
         }
 
-        .format-card:hover {
-            transform: translateY(-10px) scale(1.05);
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-        }
-
-        .format-card:hover .format-icon,
-        .format-card:hover .format-name {
-            color: white;
-        }
-
-        .format-icon {
-            font-size: 50px;
-            margin-bottom: 15px;
+        .step-indicator.active {
             color: var(--primary);
         }
 
-        .format-name {
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: var(--secondary);
-        }
-
-        /* Demo Section */
-        .demo-section {
-            padding: 100px 0;
-            background: linear-gradient(135deg, #f0f5ff, #e6f0ff);
-        }
-
-        .demo-container {
-            display: flex;
-            gap: 40px;
-            align-items: center;
-        }
-
-        .demo-content {
-            flex: 1;
-        }
-
-        .demo-visual {
-            flex: 1;
-            position: relative;
-            height: 400px;
-        }
-
-        .conversion-animation {
+        .step-indicator:not(:last-child)::after {
+            content: '';
             position: absolute;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            top: 50%;
+            right: 0;
+            height: 2px;
+            width: 50%;
+            background: rgba(67, 97, 238, 0.3);
         }
 
-        .book-input, .qa-output {
-            width: 180px;
-            height: 250px;
-            background: white;
-            border-radius: 10px;
-            box-shadow: var(--shadow);
-            padding: 20px;
-            position: absolute;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
+        .tool-content {
+            padding: 40px;
         }
 
-        .book-input {
-            left: 50px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            z-index: 2;
-        }
-
-        .qa-output {
-            right: 50px;
-            background: white;
-            z-index: 2;
-        }
-
-        .conversion-process {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 1;
-        }
-
-        .conversion-icon {
-            width: 80px;
-            height: 80px;
-            background: var(--success);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 30px;
-            animation: pulse 2s infinite;
-        }
-
-        /* CTA Section */
-        .cta-section {
-            padding: 100px 0;
+        .upload-section {
             text-align: center;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            border-radius: 30px;
-            margin: 0 20px 100px;
+            padding: 30px;
+            border: 3px dashed var(--light);
+            border-radius: 15px;
+            margin-bottom: 30px;
+            cursor: pointer;
+            transition: var(--transition);
+            background: rgba(76, 201, 240, 0.05);
         }
 
-        .cta-section h2 {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 3rem;
+        .upload-section:hover {
+            border-color: var(--accent);
+            background: rgba(76, 201, 240, 0.1);
+        }
+
+        .upload-icon {
+            font-size: 60px;
+            color: var(--primary);
             margin-bottom: 20px;
         }
 
-        .cta-section p {
-            font-size: 1.2rem;
-            max-width: 700px;
-            margin: 0 auto 40px;
-            opacity: 0.9;
+        .file-preview {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 30px;
         }
 
-        .cta-button.large {
-            padding: 18px 45px;
-            font-size: 1.2rem;
-            background: white;
-            color: var(--primary);
-        }
-
-        /* Footer */
-        footer {
-            background: var(--dark);
-            color: white;
-            padding: 70px 0 30px;
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-            margin-bottom: 50px;
-        }
-
-        .footer-column h3 {
-            font-size: 1.4rem;
-            margin-bottom: 25px;
-            position: relative;
-            padding-bottom: 10px;
-        }
-
-        .footer-column h3::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 50px;
-            height: 3px;
-            background: var(--accent);
-            border-radius: 3px;
-        }
-
-        .footer-links {
-            list-style: none;
-        }
-
-        .footer-links li {
-            margin-bottom: 15px;
-        }
-
-        .footer-links a {
-            color: #aaa;
-            text-decoration: none;
-            transition: var(--transition);
+        .file-item {
+            background: var(--light);
+            border-radius: 10px;
+            padding: 15px;
             display: flex;
             align-items: center;
             gap: 10px;
+            transition: var(--transition);
         }
 
-        .footer-links a:hover {
-            color: white;
-            transform: translateX(5px);
+        .file-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
 
-        .social-links {
+        .file-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: var(--light);
+            border-radius: 10px;
+        }
+
+        .progress-container {
+            height: 10px;
+            background: #e9ecef;
+            border-radius: 5px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: var(--primary);
+            width: 0%;
+            transition: width 0.4s ease;
+        }
+
+        .qa-results {
+            max-height: 400px;
+            overflow-y: auto;
+            padding: 20px;
+            border: 1px solid #e9ecef;
+            border-radius: 10px;
+            margin: 20px 0;
+            display: none;
+        }
+
+        .qa-item {
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .qa-item:last-child {
+            border-bottom: none;
+        }
+
+        .download-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .download-btn {
+            flex: 1;
+            min-width: 150px;
+            padding: 15px;
+            background: white;
+            border: 2px solid var(--light);
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            transition: var(--transition);
+            cursor: pointer;
+            text-decoration: none;
+            color: var(--dark);
+        }
+
+        .download-btn:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .share-options {
             display: flex;
             gap: 15px;
             margin-top: 20px;
         }
 
-        .social-links a {
+        .share-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 45px;
-            height: 45px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            color: white;
-            font-size: 18px;
+            background: var(--light);
             transition: var(--transition);
+            cursor: pointer;
         }
 
-        .social-links a:hover {
-            background: var(--accent);
+        .share-btn:hover {
             transform: translateY(-5px);
-        }
-
-        .copyright {
-            text-align: center;
-            padding-top: 30px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: #aaa;
-        }
-
-        /* Animation */
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
-            100% { transform: translateY(0px); }
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.1); opacity: 0.8; }
-            100% { transform: scale(1); opacity: 1; }
-        }
-
-        .floating {
-            animation: float 6s ease-in-out infinite;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
 
         /* Responsive Design */
         @media (max-width: 1100px) {
             .hero h1 {
                 font-size: 3.2rem;
-            }
-            
-            .demo-container {
-                flex-direction: column;
             }
         }
 
@@ -707,12 +591,19 @@
                 font-size: 2.2rem;
             }
             
-            .cta-section h2 {
-                font-size: 2.4rem;
-            }
-            
             .header-content {
                 padding: 15px 0;
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .tool-steps {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .step-indicator:not(:last-child)::after {
+                display: none;
             }
         }
 
@@ -730,8 +621,24 @@
                 font-size: 0.9rem;
             }
             
-            .features, .how-it-works, .formats {
+            .features, .conversion-tool, .formats {
                 padding: 60px 0;
+            }
+            
+            .book-illustration {
+                transform: scale(0.8);
+            }
+            
+            .book-1, .book-2, .book-3 {
+                position: relative;
+                top: 0;
+                left: 0;
+                margin: 0 auto 20px;
+                transform: none !important;
+            }
+            
+            .tool-content {
+                padding: 20px;
             }
         }
     </style>
@@ -748,14 +655,13 @@
                 <nav>
                     <ul>
                         <li><a href="#" class="active">Home</a></li>
-                        <li><a href="#">Features</a></li>
-                        <li><a href="#">How It Works</a></li>
-                        <li><a href="#">Formats</a></li>
-                        <li><a href="#">Pricing</a></li>
-                        <li><a href="#">Contact</a></li>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#conversion">Convert</a></li>
+                        <li><a href="#formats">Formats</a></li>
+                        <li><a href="#contact">Contact</a></li>
                     </ul>
                 </nav>
-                <a href="#" class="cta-button">Get Started</a>
+                <a href="#conversion" class="cta-button">Get Started</a>
             </div>
         </div>
     </header>
@@ -767,11 +673,11 @@
                 <h1>Transform Books into Interactive Q&A</h1>
                 <p>Upload any book format and instantly generate question-answer pairs for enhanced learning and study efficiency. Perfect for students, educators, and self-learners.</p>
                 <div class="hero-buttons">
-                    <a href="#" class="cta-button">
+                    <a href="#conversion" class="cta-button">
                         <i class="fas fa-play-circle"></i> Start Converting Now
                     </a>
                 </div>
-                <div class="stats" style="margin-top: 30px; display: flex; gap: 30px;">
+                <div class="stats" style="margin-top: 30px; display: flex; gap: 30px; flex-wrap: wrap;">
                     <div>
                         <h3 style="font-size: 2rem; color: var(--primary);">50K+</h3>
                         <p>Books Processed</p>
@@ -836,7 +742,7 @@
     </section>
 
     <!-- Features Section -->
-    <section class="features">
+    <section class="features" id="features">
         <div class="container">
             <div class="section-title">
                 <h2>Powerful Features</h2>
@@ -889,84 +795,104 @@
         </div>
     </section>
 
-    <!-- How It Works -->
-    <section class="how-it-works">
+    <!-- Conversion Tool -->
+    <section class="conversion-tool" id="conversion">
         <div class="container">
             <div class="section-title">
-                <h2>How It Works</h2>
-                <p>Transforming your books into interactive Q&A is simple and efficient</p>
+                <h2>Book Conversion Tool</h2>
+                <p>Transform your books into Q&A format in three simple steps</p>
             </div>
-            <div class="steps">
-                <div class="step">
-                    <div class="step-number">1</div>
-                    <i class="fas fa-cloud-upload-alt step-icon"></i>
-                    <h3>Upload Your Book</h3>
-                    <p>Select your book file from your device, cloud storage, or paste a URL.</p>
+            <div class="tool-container">
+                <div class="tool-header">
+                    <h2><i class="fas fa-sync-alt"></i> Book to Q&A Converter</h2>
                 </div>
-                <div class="step">
-                    <div class="step-number">2</div>
-                    <i class="fas fa-cogs step-icon"></i>
-                    <h3>AI Processing</h3>
-                    <p>Our algorithms analyze the content and generate relevant questions.</p>
+                <div class="tool-steps">
+                    <div class="step-indicator active">1. Upload Book</div>
+                    <div class="step-indicator">2. Process Content</div>
+                    <div class="step-indicator">3. Download Results</div>
                 </div>
-                <div class="step">
-                    <div class="step-number">3</div>
-                    <i class="fas fa-edit step-icon"></i>
-                    <h3>Review & Customize</h3>
-                    <p>Edit, add, or remove questions to perfect your Q&A set.</p>
-                </div>
-                <div class="step">
-                    <div class="step-number">4</div>
-                    <i class="fas fa-file-download step-icon"></i>
-                    <h3>Download & Share</h3>
-                    <p>Export in your preferred format or share directly with others.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Demo Section -->
-    <section class="demo-section">
-        <div class="container">
-            <div class="demo-container">
-                <div class="demo-content">
-                    <div class="section-title" style="text-align: left;">
-                        <h2>See It In Action</h2>
-                        <p>Watch how Book2QA transforms your reading materials</p>
+                <div class="tool-content">
+                    <div id="upload-step">
+                        <div class="upload-section" id="upload-area">
+                            <div class="upload-icon">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                            </div>
+                            <h3>Drag & Drop Your Book Here</h3>
+                            <p>or click to browse files (PDF, EPUB, DOCX, TXT, MOBI)</p>
+                            <input type="file" id="file-input" accept=".pdf,.epub,.docx,.txt,.mobi" style="display: none;">
+                        </div>
+                        
+                        <div class="file-preview" id="file-preview">
+                            <!-- Files will appear here -->
+                        </div>
+                        
+                        <button class="cta-button" id="convert-btn" style="width: 100%; margin-top: 20px;">
+                            <i class="fas fa-sync-alt"></i> Convert to Q&A
+                        </button>
                     </div>
-                    <p style="margin-bottom: 20px;">Our intelligent system scans your book's content, identifies key concepts, and generates relevant questions with accurate answers.</p>
-                    <p style="margin-bottom: 30px;">The conversion process preserves the original meaning while creating valuable study materials.</p>
-                    <a href="#" class="cta-button">
-                        <i class="fas fa-video"></i> Watch Full Demo
-                    </a>
-                </div>
-                <div class="demo-visual">
-                    <div class="conversion-animation">
-                        <div class="book-input">
-                            <h3 style="text-align: center; margin-bottom: 15px;">Input Book</h3>
-                            <div style="text-align: center; font-size: 3rem;">
-                                <i class="fas fa-book"></i>
-                            </div>
-                            <p style="margin-top: 15px; text-align: center;">Textbook.pdf</p>
-                        </div>
-                        <div class="conversion-process">
-                            <div class="conversion-icon">
-                                <i class="fas fa-sync-alt"></i>
+                    
+                    <div id="process-step" style="display: none;">
+                        <div class="file-info">
+                            <i class="fas fa-file-pdf" style="font-size: 40px; color: var(--primary);"></i>
+                            <div>
+                                <h4 id="process-filename">Science_Textbook.pdf</h4>
+                                <p>Processing book content...</p>
                             </div>
                         </div>
-                        <div class="qa-output">
-                            <h3 style="text-align: center; margin-bottom: 15px; color: var(--primary);">Output Q&A</h3>
-                            <div class="qa-highlight">
-                                <strong>Q:</strong> What is the capital of France?<br>
-                                <strong>A:</strong> Paris
+                        
+                        <div class="progress-container">
+                            <div class="progress-bar" id="progress-bar"></div>
+                        </div>
+                        
+                        <p style="text-align: center; margin-top: 20px;" id="status-text">Analyzing content structure...</p>
+                    </div>
+                    
+                    <div id="result-step" style="display: none;">
+                        <div class="file-info">
+                            <i class="fas fa-file-alt" style="font-size: 40px; color: var(--success);"></i>
+                            <div>
+                                <h4>Q&A Results Ready!</h4>
+                                <p>Your book has been successfully converted to Q&A format</p>
                             </div>
-                            <div class="qa-highlight">
-                                <strong>Q:</strong> Who wrote Hamlet?<br>
-                                <strong>A:</strong> William Shakespeare
+                        </div>
+                        
+                        <div class="qa-results" id="qa-results">
+                            <!-- Q&A results will appear here -->
+                        </div>
+                        
+                        <h3 style="margin-top: 30px;">Download Options</h3>
+                        <div class="download-options">
+                            <a href="#" class="download-btn" id="download-pdf">
+                                <i class="fas fa-file-pdf" style="font-size: 30px; color: #e74c3c;"></i>
+                                <span>PDF Format</span>
+                            </a>
+                            <a href="#" class="download-btn" id="download-doc">
+                                <i class="fas fa-file-word" style="font-size: 30px; color: #2b579a;"></i>
+                                <span>DOCX Format</span>
+                            </a>
+                            <a href="#" class="download-btn" id="download-txt">
+                                <i class="fas fa-file-alt" style="font-size: 30px; color: var(--dark);"></i>
+                                <span>TXT Format</span>
+                            </a>
+                            <a href="#" class="download-btn" id="download-csv">
+                                <i class="fas fa-file-csv" style="font-size: 30px; color: #27ae60;"></i>
+                                <span>CSV Format</span>
+                            </a>
+                        </div>
+                        
+                        <h3 style="margin-top: 30px;">Share Results</h3>
+                        <div class="share-options">
+                            <div class="share-btn">
+                                <i class="fab fa-google-drive" style="color: #4285F4;"></i>
                             </div>
-                            <div class="qa-highlight">
-                                <strong>Q:</strong> What is photosynthesis?<br>
-                                <strong>A:</strong> Process plants use to convert light into energy
+                            <div class="share-btn">
+                                <i class="fab fa-dropbox" style="color: #0061ff;"></i>
+                            </div>
+                            <div class="share-btn">
+                                <i class="fas fa-envelope" style="color: #EA4335;"></i>
+                            </div>
+                            <div class="share-btn">
+                                <i class="fab fa-whatsapp" style="color: #25D366;"></i>
                             </div>
                         </div>
                     </div>
@@ -976,60 +902,61 @@
     </section>
 
     <!-- Supported Formats -->
-    <section class="formats">
+    <section class="features" id="formats">
         <div class="container">
             <div class="section-title">
                 <h2>Supported Formats</h2>
                 <p>We work with all major book and document formats</p>
             </div>
-            <div class="formats-grid">
-                <div class="format-card">
-                    <i class="fas fa-file-pdf format-icon"></i>
-                    <div class="format-name">PDF</div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon" style="background: #e74c3c;">
+                        <i class="fas fa-file-pdf"></i>
+                    </div>
+                    <h3>PDF Documents</h3>
+                    <p>Convert PDF textbooks, manuals, and documents to Q&A format</p>
                 </div>
-                <div class="format-card">
-                    <i class="fas fa-book format-icon"></i>
-                    <div class="format-name">EPUB</div>
+                <div class="feature-card">
+                    <div class="feature-icon" style="background: #3498db;">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <h3>EPUB Ebooks</h3>
+                    <p>Transform EPUB ebooks into interactive Q&A study materials</p>
                 </div>
-                <div class="format-card">
-                    <i class="fas fa-file-word format-icon"></i>
-                    <div class="format-name">DOCX</div>
+                <div class="feature-card">
+                    <div class="feature-icon" style="background: #2b579a;">
+                        <i class="fas fa-file-word"></i>
+                    </div>
+                    <h3>DOCX Documents</h3>
+                    <p>Convert Word documents to question-answer format</p>
                 </div>
-                <div class="format-card">
-                    <i class="fas fa-file-alt format-icon"></i>
-                    <div class="format-name">TXT</div>
+                <div class="feature-card">
+                    <div class="feature-icon" style="background: #7f8c8d;">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+                    <h3>TXT Files</h3>
+                    <p>Process plain text files into structured Q&A format</p>
                 </div>
-                <div class="format-card">
-                    <i class="fab fa-amazon format-icon"></i>
-                    <div class="format-name">MOBI</div>
+                <div class="feature-card">
+                    <div class="feature-icon" style="background: #e67e22;">
+                        <i class="fab fa-amazon"></i>
+                    </div>
+                    <h3>MOBI Books</h3>
+                    <p>Convert Kindle MOBI format books to Q&A</p>
                 </div>
-                <div class="format-card">
-                    <i class="fas fa-file-code format-icon"></i>
-                    <div class="format-name">HTML</div>
-                </div>
-                <div class="format-card">
-                    <i class="fas fa-file-image format-icon"></i>
-                    <div class="format-name">Image Files</div>
-                </div>
-                <div class="format-card">
-                    <i class="fas fa-scroll format-icon"></i>
-                    <div class="format-name">Plain Text</div>
+                <div class="feature-card">
+                    <div class="feature-icon" style="background: #27ae60;">
+                        <i class="fas fa-file-code"></i>
+                    </div>
+                    <h3>HTML Files</h3>
+                    <p>Extract content from HTML files and convert to Q&A</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- CTA Section -->
-    <section class="cta-section">
-        <div class="container">
-            <h2>Ready to Transform Your Reading Experience?</h2>
-            <p>Join thousands of students, educators, and professionals who are already enhancing their learning with Book2QA</p>
-            <a href="#" class="cta-button large">Start Converting Now</a>
-        </div>
-    </section>
-
     <!-- Footer -->
-    <footer>
+    <footer id="contact">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-column">
@@ -1046,10 +973,10 @@
                     <h3>Quick Links</h3>
                     <ul class="footer-links">
                         <li><a href="#"><i class="fas fa-chevron-right"></i> Home</a></li>
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> Features</a></li>
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> How It Works</a></li>
+                        <li><a href="#features"><i class="fas fa-chevron-right"></i> Features</a></li>
+                        <li><a href="#conversion"><i class="fas fa-chevron-right"></i> Convert Tool</a></li>
+                        <li><a href="#formats"><i class="fas fa-chevron-right"></i> Supported Formats</a></li>
                         <li><a href="#"><i class="fas fa-chevron-right"></i> Pricing</a></li>
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> Contact</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
@@ -1078,11 +1005,175 @@
     </footer>
 
     <script>
-        // Simple animations
         document.addEventListener('DOMContentLoaded', function() {
+            // File upload functionality
+            const uploadArea = document.getElementById('upload-area');
+            const fileInput = document.getElementById('file-input');
+            const filePreview = document.getElementById('file-preview');
+            const convertBtn = document.getElementById('convert-btn');
+            const uploadStep = document.getElementById('upload-step');
+            const processStep = document.getElementById('process-step');
+            const resultStep = document.getElementById('result-step');
+            const progressBar = document.getElementById('progress-bar');
+            const statusText = document.getElementById('status-text');
+            const qaResults = document.getElementById('qa-results');
+            const processFilename = document.getElementById('process-filename');
+            
+            // Sample files for demo
+            const sampleFiles = [
+                {name: "Science Textbook.pdf", icon: "file-pdf", color: "#e74c3c"},
+                {name: "History Book.epub", icon: "book", color: "#3498db"},
+                {name: "Literature Analysis.docx", icon: "file-word", color: "#2b579a"}
+            ];
+            
+            // Show sample files
+            sampleFiles.forEach(file => {
+                const fileItem = document.createElement('div');
+                fileItem.className = 'file-item';
+                fileItem.innerHTML = `
+                    <i class="fas fa-${file.icon}" style="color: ${file.color}; font-size: 24px;"></i>
+                    <span>${file.name}</span>
+                `;
+                filePreview.appendChild(fileItem);
+            });
+            
+            // Upload area click
+            uploadArea.addEventListener('click', () => {
+                fileInput.click();
+            });
+            
+            // File input change
+            fileInput.addEventListener('change', function(e) {
+                if (this.files && this.files[0]) {
+                    const file = this.files[0];
+                    const fileName = file.name;
+                    const fileType = fileName.split('.').pop().toUpperCase();
+                    
+                    // Create file preview item
+                    const fileItem = document.createElement('div');
+                    fileItem.className = 'file-item';
+                    fileItem.innerHTML = `
+                        <i class="fas fa-file-${getFileIcon(fileType)}" style="color: ${getFileColor(fileType)}; font-size: 24px;"></i>
+                        <span>${fileName}</span>
+                        <button class="remove-btn" style="margin-left: 10px; background: none; border: none; cursor: pointer; color: var(--danger);">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    `;
+                    
+                    // Clear previous preview
+                    filePreview.innerHTML = '';
+                    filePreview.appendChild(fileItem);
+                    
+                    // Add remove button functionality
+                    fileItem.querySelector('.remove-btn').addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        filePreview.innerHTML = '';
+                        fileInput.value = '';
+                    });
+                }
+            });
+            
+            // Convert button click
+            convertBtn.addEventListener('click', function() {
+                if (fileInput.files.length === 0) {
+                    alert('Please select a file to convert!');
+                    return;
+                }
+                
+                const file = fileInput.files[0];
+                processFilename.textContent = file.name;
+                
+                // Show processing step
+                uploadStep.style.display = 'none';
+                processStep.style.display = 'block';
+                
+                // Simulate conversion process
+                let progress = 0;
+                const interval = setInterval(() => {
+                    progress += 5;
+                    progressBar.style.width = progress + '%';
+                    
+                    if (progress <= 30) {
+                        statusText.textContent = "Analyzing document structure...";
+                    } else if (progress <= 60) {
+                        statusText.textContent = "Extracting key concepts...";
+                    } else if (progress <= 90) {
+                        statusText.textContent = "Generating questions and answers...";
+                    } else {
+                        statusText.textContent = "Finalizing Q&A content...";
+                    }
+                    
+                    if (progress >= 100) {
+                        clearInterval(interval);
+                        
+                        // Show results after a delay
+                        setTimeout(() => {
+                            processStep.style.display = 'none';
+                            resultStep.style.display = 'block';
+                            generateSampleQAResults();
+                        }, 800);
+                    }
+                }, 200);
+            });
+            
+            // Download buttons
+            document.querySelectorAll('.download-btn').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const format = this.id.split('-')[1];
+                    alert(`Downloading your Q&A in ${format.toUpperCase()} format! In a real application, this would download your file.`);
+                });
+            });
+            
+            // Helper functions
+            function getFileIcon(fileType) {
+                if (fileType === 'PDF') return 'pdf';
+                if (fileType === 'EPUB') return 'book';
+                if (fileType === 'DOCX') return 'word';
+                return 'alt';
+            }
+            
+            function getFileColor(fileType) {
+                if (fileType === 'PDF') return '#e74c3c';
+                if (fileType === 'EPUB') return '#3498db';
+                if (fileType === 'DOCX') return '#2b579a';
+                return '#7f8c8d';
+            }
+            
+            function generateSampleQAResults() {
+                const sampleQA = [
+                    { q: "What is the main theme of 'To Kill a Mockingbird'?", a: "The main themes are racial injustice and the destruction of innocence." },
+                    { q: "Who are the main characters in the book?", a: "Scout Finch, Atticus Finch, Jem Finch, and Boo Radley." },
+                    { q: "What important lesson does Atticus teach Scout?", a: "Atticus teaches Scout about empathy and understanding others by saying, 'You never really understand a person until you consider things from his point of view... until you climb into his skin and walk around in it.'" },
+                    { q: "What does the mockingbird symbolize?", a: "The mockingbird symbolizes innocence and beauty. Atticus says it's a sin to kill a mockingbird because they don't harm anyone, they just make music for people to enjoy." },
+                    { q: "How does the story address social inequality?", a: "The book addresses social inequality through the trial of Tom Robinson, a black man falsely accused of raping a white woman, and the prejudice he faces in the justice system." },
+                    { q: "What role does Boo Radley play in the story?", a: "Boo Radley serves as a symbol of the town's irrational fears and prejudice. He ultimately proves to be kind and protective of the children." }
+                ];
+                
+                qaResults.innerHTML = '';
+                qaResults.style.display = 'block';
+                
+                sampleQA.forEach((item, index) => {
+                    const qaItem = document.createElement('div');
+                    qaItem.className = 'qa-item';
+                    qaItem.innerHTML = `
+                        <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+                            <div style="background: var(--primary); color: white; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                                ${index + 1}
+                            </div>
+                            <div>
+                                <h4 style="color: var(--secondary);">${item.q}</h4>
+                                <p><strong>Answer:</strong> ${item.a}</p>
+                            </div>
+                        </div>
+                    `;
+                    qaResults.appendChild(qaItem);
+                });
+            }
+            
             // Animate elements on scroll
             const animateOnScroll = () => {
-                const elements = document.querySelectorAll('.feature-card, .step, .format-card');
+                const elements = document.querySelectorAll('.feature-card');
                 
                 elements.forEach(el => {
                     const position = el.getBoundingClientRect();
@@ -1098,18 +1189,6 @@
             
             // Check on scroll
             window.addEventListener('scroll', animateOnScroll);
-            
-            // Book hover effect
-            const books = document.querySelectorAll('.book');
-            books.forEach(book => {
-                book.addEventListener('mouseenter', () => {
-                    book.style.transform = book.style.transform.replace(')', '') + ' scale(1.05))';
-                });
-                
-                book.addEventListener('mouseleave', () => {
-                    book.style.transform = book.style.transform.replace(' scale(1.05)', '');
-                });
-            });
         });
     </script>
 </body>
