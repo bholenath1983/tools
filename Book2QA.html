@@ -3,868 +3,877 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Convert books into question-answer formats instantly. Supports PDF, EPUB, DOCX and more. Free online tool for students and educators.">
-    <meta name="keywords" content="book converter, Q&A generator, PDF to questions, study tool, ebook converter">
-    <title>Book2QA - Convert Books to Question-Answer Format | Free Online Tool</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
+    <meta name="description" content="Convert your PDF and Word documents into question-answer formats instantly. Perfect for students, researchers, and content creators.">
+    <meta name="keywords" content="Q&A generator, PDF to questions, Word to quiz, document converter, study tool">
+    <title>Doc2QA - Convert Documents to Question-Answer Format</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
-            --primary: #4361ee;
-            --secondary: #3f37c9;
-            --accent: #4cc9f0;
-            --light: #f8f9fa;
-            --dark: #212529;
-            --success: #4ade80;
-            --warning: #facc15;
-            --danger: #f87171;
-            --gray: #6c757d;
-            --light-gray: #e9ecef;
-            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            --transition: all 0.3s ease;
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            --primary-color: #4a6fa5;
+            --secondary-color: #166088;
+            --accent-color: #4fc3f7;
+            --light-color: #f8f9fa;
+            --dark-color: #343a40;
         }
         
         body {
-            background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
-            color: var(--dark);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
-            min-height: 100vh;
-            padding-bottom: 2rem;
+            color: #333;
+            background-color: #f5f7fa;
         }
         
-        .container {
-            width: 100%;
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 1.5rem;
-        }
-        
-        header {
-            background: linear-gradient(120deg, var(--primary), var(--secondary));
-            color: white;
-            padding: 1.5rem 0;
-            box-shadow: var(--shadow);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-        
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-        
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            font-size: 1.75rem;
+        .navbar-brand {
             font-weight: 700;
+            color: var(--primary-color);
         }
         
-        .logo i {
-            color: var(--accent);
-        }
-        
-        nav ul {
-            display: flex;
-            list-style: none;
-            gap: 1.5rem;
-        }
-        
-        nav a {
-            color: rgba(255, 255, 255, 0.85);
-            text-decoration: none;
-            font-weight: 500;
-            transition: var(--transition);
-            padding: 0.5rem 0.75rem;
-            border-radius: 0.25rem;
-        }
-        
-        nav a:hover, nav a.active {
+        .hero-section {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             color: white;
-            background: rgba(255, 255, 255, 0.15);
+            padding: 3rem 0;
+            margin-bottom: 2rem;
+            border-radius: 0 0 20px 20px;
         }
         
-        .hero {
-            text-align: center;
-            padding: 4rem 1rem;
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="%234361ee" opacity="0.05"/><path d="M0 0L100 100M100 0L0 100" stroke="%234cc9f0" stroke-width="0.5" opacity="0.2"/></svg>');
-            background-size: cover;
-        }
-        
-        .hero h1 {
-            font-size: 2.75rem;
-            margin-bottom: 1.25rem;
-            background: linear-gradient(90deg, var(--secondary), var(--accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        .hero p {
-            font-size: 1.25rem;
-            max-width: 700px;
-            margin: 0 auto 2rem;
-            color: var(--gray);
-        }
-        
-        .features {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 1.5rem;
-            margin-bottom: 3rem;
-        }
-        
-        .feature {
+        .upload-container {
             background: white;
-            padding: 1.5rem;
-            border-radius: 0.75rem;
-            box-shadow: var(--shadow);
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+        
+        .dropzone {
+            border: 2px dashed #ccc;
+            border-radius: 8px;
+            padding: 3rem;
             text-align: center;
-            width: 180px;
-            transition: var(--transition);
-        }
-        
-        .feature:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-        }
-        
-        .feature i {
-            font-size: 2.5rem;
-            color: var(--primary);
+            cursor: pointer;
+            transition: all 0.3s;
             margin-bottom: 1rem;
         }
         
-        .main-content {
-            display: grid;
-            grid-template-columns: 1fr 300px;
-            gap: 2rem;
+        .dropzone:hover, .dropzone.dragover {
+            border-color: var(--accent-color);
+            background-color: rgba(79, 195, 247, 0.05);
+        }
+        
+        .file-upload-btn {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+        }
+        
+        .file-upload-input {
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+        
+        .result-container {
+            display: none;
             margin-top: 2rem;
         }
         
-        @media (max-width: 992px) {
-            .main-content {
-                grid-template-columns: 1fr;
-            }
-        }
-        
-        .upload-section {
-            background: white;
-            border-radius: 1rem;
-            box-shadow: var(--shadow);
-            padding: 2rem;
-            margin-bottom: 2rem;
-        }
-        
-        .section-title {
-            font-size: 1.5rem;
-            margin-bottom: 1.5rem;
-            color: var(--secondary);
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-        }
-        
-        .section-title i {
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        .upload-options {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-        }
-        
-        .upload-option {
-            flex: 1;
-            min-width: 250px;
-            border: 2px dashed var(--light-gray);
-            border-radius: 0.75rem;
-            padding: 2rem 1.5rem;
-            text-align: center;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-        
-        .upload-option:hover {
-            border-color: var(--accent);
-            background-color: rgba(76, 201, 240, 0.05);
-        }
-        
-        .upload-option i {
-            font-size: 3rem;
-            color: var(--primary);
-            margin-bottom: 1rem;
-        }
-        
-        .upload-option h3 {
-            margin-bottom: 0.75rem;
-            color: var(--secondary);
-        }
-        
-        .file-input {
-            display: none;
-        }
-        
-        .preview-section {
-            background: white;
-            border-radius: 1rem;
-            box-shadow: var(--shadow);
-            padding: 2rem;
-            margin-bottom: 2rem;
-        }
-        
-        .preview-container {
-            border: 1px solid var(--light-gray);
-            border-radius: 0.5rem;
-            padding: 1.5rem;
-            min-height: 300px;
-            max-height: 500px;
-            overflow-y: auto;
-        }
-        
         .qa-item {
-            background: var(--light);
-            border-left: 4px solid var(--primary);
-            padding: 1rem;
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
             margin-bottom: 1rem;
-            border-radius: 0 0.5rem 0.5rem 0;
-        }
-        
-        .qa-item .question {
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            color: var(--secondary);
-        }
-        
-        .download-options {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-            margin-top: 1.5rem;
-        }
-        
-        .btn {
-            padding: 0.75rem 1.5rem;
-            border: none;
-            border-radius: 0.5rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        
-        .btn-primary {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-        }
-        
-        .btn-outline {
-            background: transparent;
-            border: 2px solid var(--primary);
-            color: var(--primary);
-        }
-        
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-        
-        .btn-primary:hover {
-            background: linear-gradient(135deg, var(--secondary), var(--primary));
-        }
-        
-        .btn-outline:hover {
-            background: rgba(67, 97, 238, 0.05);
-        }
-        
-        .sidebar {
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
         }
         
         .ad-container {
-            background: white;
-            border-radius: 0.75rem;
-            box-shadow: var(--shadow);
-            padding: 1.5rem;
-            text-align: center;
-            min-height: 250px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-        
-        .ad-container h3 {
-            color: var(--gray);
-            margin-bottom: 1rem;
-            font-size: 1.1rem;
-        }
-        
-        .ad-placeholder {
-            width: 100%;
-            height: 200px;
-            background: linear-gradient(45deg, var(--light-gray), #f0f0f0);
-            border-radius: 0.5rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            color: var(--gray);
-            font-size: 0.9rem;
-        }
-        
-        .ad-placeholder i {
-            font-size: 2rem;
-            margin-bottom: 0.75rem;
-            color: var(--gray);
-        }
-        
-        .stats {
-            background: white;
-            border-radius: 0.75rem;
-            box-shadow: var(--shadow);
-            padding: 1.5rem;
-        }
-        
-        .stat-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 0.75rem 0;
-            border-bottom: 1px solid var(--light-gray);
-        }
-        
-        .stat-item:last-child {
-            border-bottom: none;
-        }
-        
-        .stat-value {
-            font-weight: 700;
-            color: var(--primary);
-        }
-        
-        footer {
-            text-align: center;
-            padding: 2rem 1rem;
-            margin-top: 3rem;
-            color: var(--gray);
-            font-size: 0.9rem;
-            border-top: 1px solid var(--light-gray);
-        }
-        
-        /* Responsive adjustments */
-        @media (max-width: 768px) {
-            .header-content {
-                flex-direction: column;
-                gap: 1rem;
-            }
-            
-            nav ul {
-                gap: 0.75rem;
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-            
-            .hero h1 {
-                font-size: 2rem;
-            }
-            
-            .hero p {
-                font-size: 1rem;
-            }
-            
-            .feature {
-                width: 140px;
-                padding: 1rem;
-            }
-            
-            .upload-options {
-                flex-direction: column;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .logo {
-                font-size: 1.5rem;
-            }
-            
-            .hero {
-                padding: 2.5rem 1rem;
-            }
-            
-            .hero h1 {
-                font-size: 1.75rem;
-            }
-            
-            .features {
-                gap: 1rem;
-            }
-            
-            .feature {
-                width: 100%;
-                max-width: 250px;
-            }
-            
-            .section-title {
-                font-size: 1.25rem;
-            }
-        }
-        
-        /* Progress bar */
-        .progress-container {
-            margin: 1.5rem 0;
-            background: var(--light-gray);
-            border-radius: 0.5rem;
-            height: 10px;
-            overflow: hidden;
-        }
-        
-        .progress-bar {
-            height: 100%;
-            background: linear-gradient(90deg, var(--accent), var(--primary));
-            width: 0%;
-            transition: width 0.4s ease;
-        }
-        
-        /* File info */
-        .file-info {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin-top: 1rem;
+            background: #f8f9fa;
+            border: 1px dashed #ccc;
             padding: 1rem;
-            background: var(--light);
-            border-radius: 0.5rem;
+            text-align: center;
+            margin: 1rem 0;
+            min-height: 90px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         
-        .file-icon {
-            font-size: 2rem;
-            color: var(--primary);
+        .footer {
+            background: var(--dark-color);
+            color: white;
+            padding: 2rem 0;
+            margin-top: 3rem;
         }
         
-        .file-details {
-            flex: 1;
-        }
-        
-        .file-name {
-            font-weight: 600;
-            margin-bottom: 0.25rem;
-        }
-        
-        .file-size {
-            color: var(--gray);
-            font-size: 0.9rem;
-        }
-        
-        /* Simulated processing animation */
-        .processing {
+        .loading-spinner {
             display: none;
             text-align: center;
-            padding: 2rem;
+            margin: 2rem 0;
         }
         
-        .processing-spinner {
-            width: 50px;
-            height: 50px;
-            border: 5px solid var(--light-gray);
-            border-top: 5px solid var(--primary);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 1rem;
+        .option-btn {
+            margin: 0.5rem;
+            white-space: nowrap;
         }
         
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        @media (max-width: 768px) {
+            .hero-section {
+                padding: 2rem 0;
+            }
+            
+            .dropzone {
+                padding: 1.5rem;
+            }
+            
+            .option-btn {
+                margin: 0.25rem;
+                width: 100%;
+            }
         }
     </style>
 </head>
 <body>
-    <header>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
         <div class="container">
-            <div class="header-content">
-                <div class="logo">
-                    <i class="fas fa-book-open"></i>
-                    <span>Book2QA</span>
-                </div>
-                <nav>
-                    <ul>
-                        <li><a href="#" class="active">Home</a></li>
-                        <li><a href="#">How It Works</a></li>
-                        <li><a href="#">Features</a></li>
-                        <li><a href="#">Pricing</a></li>
-                        <li><a href="#">Contact</a></li>
-                    </ul>
-                </nav>
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-question-circle me-2"></i>Doc2QA
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#features">Features</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#how-it-works">How It Works</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#pricing">Pricing</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
+                </ul>
             </div>
         </div>
-    </header>
-    
-    <section class="hero">
-        <div class="container">
-            <h1>Transform Books into Interactive Q&A</h1>
-            <p>Upload any book format and instantly generate question-answer pairs for enhanced learning and study efficiency.</p>
-            
-            <div class="features">
-                <div class="feature">
-                    <i class="fas fa-file-upload"></i>
-                    <h3>Upload</h3>
-                    <p>Multiple upload options</p>
-                </div>
-                <div class="feature">
-                    <i class="fas fa-cogs"></i>
-                    <h3>Convert</h3>
-                    <p>AI-powered conversion</p>
-                </div>
-                <div class="feature">
-                    <i class="fas fa-download"></i>
-                    <h3>Download</h3>
-                    <p>Multiple formats</p>
-                </div>
-                <div class="feature">
-                    <i class="fas fa-share-alt"></i>
-                    <h3>Share</h3>
-                    <p>Easy sharing options</p>
-                </div>
-            </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container text-center">
+            <h1>Convert Documents to Q&A Format Instantly</h1>
+            <p class="lead">Upload your PDF or Word documents and get comprehensive question-answer pairs automatically generated</p>
         </div>
     </section>
-    
+
+    <!-- Ad Container 1 -->
     <div class="container">
-        <div class="main-content">
-            <div class="content">
-                <div class="upload-section">
-                    <h2 class="section-title"><i class="fas fa-cloud-upload-alt"></i> Upload Your Book</h2>
+        <div class="ad-container">
+            <!-- Replace with your Google AdSense code -->
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_ADSENSE_ID"
+                crossorigin="anonymous"></script>
+            <!-- Ad Unit 1 -->
+            <ins class="adsbygoogle"
+                style="display:block"
+                data-ad-client="ca-pub-YOUR_ADSENSE_ID"
+                data-ad-slot="YOUR_AD_UNIT_ID_1"
+                data-ad-format="auto"
+                data-full-width-responsive="true"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div class="upload-container">
+                    <h2 class="text-center mb-4"><i class="fas fa-file-upload me-2"></i>Upload Your Document</h2>
                     
-                    <div class="upload-options">
-                        <div class="upload-option" id="file-upload">
-                            <i class="fas fa-folder-open"></i>
-                            <h3>Select File</h3>
-                            <p>Choose from your device</p>
-                            <input type="file" class="file-input" id="file-input" accept=".pdf,.epub,.docx,.txt,.mobi">
-                        </div>
-                        
-                        <div class="upload-option" id="drop-area">
-                            <i class="fas fa-cloud-upload-alt"></i>
-                            <h3>Drag & Drop</h3>
-                            <p>Drop files here</p>
-                        </div>
-                        
-                        <div class="upload-option">
-                            <i class="fas fa-link"></i>
-                            <h3>From URL</h3>
-                            <p>Enter book URL</p>
-                        </div>
-                    </div>
-                    
-                    <div class="file-info" id="file-info" style="display: none;">
-                        <div class="file-icon">
-                            <i class="fas fa-file-pdf"></i>
-                        </div>
-                        <div class="file-details">
-                            <div class="file-name" id="file-name">sample-book.pdf</div>
-                            <div class="file-size" id="file-size">2.4 MB</div>
-                        </div>
-                        <button class="btn btn-outline" id="remove-file">
-                            <i class="fas fa-times"></i> Remove
+                    <div id="dropzone" class="dropzone">
+                        <i class="fas fa-cloud-upload-alt fa-3x mb-3" style="color: var(--accent-color);"></i>
+                        <p>Drag & drop your PDF or Word document here</p>
+                        <p class="text-muted">or</p>
+                        <button class="btn btn-primary file-upload-btn">
+                            <i class="fas fa-folder-open me-2"></i>Browse Files
+                            <input type="file" id="fileInput" class="file-upload-input" accept=".pdf,.doc,.docx,.txt">
                         </button>
                     </div>
                     
-                    <div class="progress-container">
-                        <div class="progress-bar" id="progress-bar"></div>
+                    <div class="text-center mt-3">
+                        <p class="text-muted">Supported formats: PDF, DOC, DOCX, TXT</p>
                     </div>
                     
-                    <div class="processing" id="processing">
-                        <div class="processing-spinner"></div>
-                        <h3>Processing your book...</h3>
-                        <p>Generating question-answer pairs. This may take a few moments.</p>
-                    </div>
-                    
-                    <button class="btn btn-primary" id="convert-btn" disabled>
-                        <i class="fas fa-sync-alt"></i> Convert to Q&A
-                    </button>
-                </div>
-                
-                <div class="preview-section">
-                    <h2 class="section-title"><i class="fas fa-eye"></i> Generated Q&A Preview</h2>
-                    
-                    <div class="preview-container" id="preview-container">
-                        <p class="text-center" id="preview-placeholder">Your generated questions and answers will appear here after conversion.</p>
-                        <div id="qa-content"></div>
-                    </div>
-                    
-                    <div class="download-options">
-                        <button class="btn btn-primary" id="download-pdf">
-                            <i class="fas fa-file-pdf"></i> Download PDF
-                        </button>
-                        <button class="btn btn-outline" id="download-doc">
-                            <i class="fas fa-file-word"></i> Download DOCX
-                        </button>
-                        <button class="btn btn-outline" id="download-txt">
-                            <i class="fas fa-file-alt"></i> Download TXT
-                        </button>
-                        <button class="btn btn-outline" id="download-csv">
-                            <i class="fas fa-file-csv"></i> Download CSV
+                    <div class="text-center mt-4">
+                        <button id="convertBtn" class="btn btn-success btn-lg" disabled>
+                            <i class="fas fa-magic me-2"></i>Generate Q&A
                         </button>
                     </div>
-                </div>
-            </div>
-            
-            <div class="sidebar">
-                <div class="ad-container">
-                    <h3>Advertisement Space</h3>
-                    <div class="ad-placeholder">
-                        <i class="fab fa-google"></i>
-                        <p>Google AdSense</p>
-                        <small>Ad Unit ID: CA-PUB-XXXXXX</small>
+                    
+                    <div id="loadingSpinner" class="loading-spinner">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <p class="mt-2">Processing your document... This may take a few moments.</p>
                     </div>
                 </div>
                 
-                <div class="ad-container">
-                    <h3>Advertisement Space</h3>
-                    <div class="ad-placeholder">
-                        <i class="fas fa-ad"></i>
-                        <p>Ad Space Available</p>
-                        <small>300x250 Ad Unit</small>
+                <div id="optionsPanel" class="text-center mb-4" style="display: none;">
+                    <h4 class="mb-3">Conversion Options</h4>
+                    <div class="d-flex flex-wrap justify-content-center">
+                        <button class="btn btn-outline-primary option-btn" data-option="detailed">
+                            <i class="fas fa-align-left me-1"></i> Detailed Q&A
+                        </button>
+                        <button class="btn btn-outline-primary option-btn" data-option="concise">
+                            <i class="fas fa-bolt me-1"></i> Concise Q&A
+                        </button>
+                        <button class="btn btn-outline-primary option-btn" data-option="mcq">
+                            <i class="fas fa-list-ul me-1"></i> Multiple Choice
+                        </button>
+                        <button class="btn btn-outline-primary option-btn" data-option="flashcards">
+                            <i class="fas fa-layer-group me-1"></i> Flashcards
+                        </button>
                     </div>
                 </div>
                 
-                <div class="ad-container">
-                    <h3>Advertisement Space</h3>
-                    <div class="ad-placeholder">
-                        <i class="fas fa-bullhorn"></i>
-                        <p>Your Ad Here</p>
-                        <small>Contact for advertising</small>
+                <div id="resultContainer" class="result-container">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h3>Generated Questions & Answers</h3>
+                        <div>
+                            <button id="downloadPdf" class="btn btn-outline-danger me-2">
+                                <i class="fas fa-file-pdf me-1"></i>PDF
+                            </button>
+                            <button id="downloadWord" class="btn btn-outline-primary me-2">
+                                <i class="fas fa-file-word me-1"></i>Word
+                            </button>
+                            <button id="shareBtn" class="btn btn-outline-success">
+                                <i class="fas fa-share-alt me-1"></i>Share
+                            </button>
+                        </div>
                     </div>
-                </div>
-                
-                <div class="stats">
-                    <h3>Conversion Statistics</h3>
-                    <div class="stat-item">
-                        <span>Books Processed:</span>
-                        <span class="stat-value">14,892</span>
+                    
+                    <div id="qaResults">
+                        <!-- Q&A items will be inserted here -->
                     </div>
-                    <div class="stat-item">
-                        <span>Questions Generated:</span>
-                        <span class="stat-value">1.2M+</span>
-                    </div>
-                    <div class="stat-item">
-                        <span>Active Users:</span>
-                        <span class="stat-value">5,421</span>
-                    </div>
-                    <div class="stat-item">
-                        <span>Success Rate:</span>
-                        <span class="stat-value">98.7%</span>
+                    
+                    <div class="text-center mt-4">
+                        <button id="newDocumentBtn" class="btn btn-secondary">
+                            <i class="fas fa-file-import me-2"></i>Process Another Document
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    
-    <footer>
+
+    <!-- Ad Container 2 -->
+    <div class="container mt-4">
+        <div class="ad-container">
+            <!-- Replace with your Google AdSense code -->
+            <ins class="adsbygoogle"
+                style="display:block"
+                data-ad-client="ca-pub-YOUR_ADSENSE_ID"
+                data-ad-slot="YOUR_AD_UNIT_ID_2"
+                data-ad-format="auto"
+                data-full-width-responsive="true"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+    </div>
+
+    <!-- Features Section -->
+    <section id="features" class="py-5 bg-light">
         <div class="container">
-            <p>© 2023 Book2QA - All rights reserved. | Privacy Policy | Terms of Service</p>
-            <p>This is a demo application. Actual book conversion would require backend processing.</p>
+            <h2 class="text-center mb-5">Powerful Features</h2>
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body text-center">
+                            <div class="feature-icon mb-3">
+                                <i class="fas fa-file-alt fa-3x text-primary"></i>
+                            </div>
+                            <h4 class="card-title">Multiple Formats</h4>
+                            <p class="card-text">Supports PDF, Word, and text documents. Convert any material into Q&A format effortlessly.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body text-center">
+                            <div class="feature-icon mb-3">
+                                <i class="fas fa-brain fa-3x text-primary"></i>
+                            </div>
+                            <h4 class="card-title">AI-Powered Analysis</h4>
+                            <p class="card-text">Our advanced algorithms identify key concepts and generate relevant questions automatically.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body text-center">
+                            <div class="feature-icon mb-3">
+                                <i class="fas fa-download fa-3x text-primary"></i>
+                            </div>
+                            <h4 class="card-title">Export Options</h4>
+                            <p class="card-text">Download your Q&A pairs as PDF or editable Word documents for easy sharing and printing.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section id="how-it-works" class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-5">How It Works</h2>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="mb-4">
+                        <h4><span class="badge bg-primary me-2">1</span> Upload Your Document</h4>
+                        <p>Simply drag and drop your PDF, Word, or text file into the upload area or click to browse your files.</p>
+                    </div>
+                    <div class="mb-4">
+                        <h4><span class="badge bg-primary me-2">2</span> Choose Conversion Type</h4>
+                        <p>Select your preferred Q&A format - detailed explanations, concise answers, multiple choice, or flashcards.</p>
+                    </div>
+                    <div class="mb-4">
+                        <h4><span class="badge bg-primary me-2">3</span> Generate & Download</h4>
+                        <p>Our system processes your document and generates comprehensive Q&A pairs. Download or share your results.</p>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <img src="https://via.placeholder.com/600x400" alt="How Doc2QA works" class="img-fluid rounded shadow">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ad Container 3 -->
+    <div class="container mt-4">
+        <div class="ad-container">
+            <!-- Replace with your Google AdSense code -->
+            <ins class="adsbygoogle"
+                style="display:block"
+                data-ad-client="ca-pub-YOUR_ADSENSE_ID"
+                data-ad-slot="YOUR_AD_UNIT_ID_3"
+                data-ad-format="auto"
+                data-full-width-responsive="true"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+    </div>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="py-5 bg-light">
+        <div class="container">
+            <h2 class="text-center mb-5">Simple, Transparent Pricing</h2>
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <div class="card-header bg-white text-center py-3">
+                            <h4 class="my-0">Free</h4>
+                        </div>
+                        <div class="card-body">
+                            <h2 class="card-title text-center">$0<small class="text-muted">/mo</small></h2>
+                            <ul class="list-unstyled mt-3 mb-4">
+                                <li><i class="fas fa-check text-success me-2"></i> 5 document conversions/month</li>
+                                <li><i class="fas fa-check text-success me-2"></i> Basic Q&A generation</li>
+                                <li><i class="fas fa-check text-success me-2"></i> PDF downloads</li>
+                                <li><i class="fas fa-times text-muted me-2"></i> Word exports</li>
+                                <li><i class="fas fa-times text-muted me-2"></i> Advanced formats</li>
+                            </ul>
+                        </div>
+                        <div class="card-footer bg-white border-0 text-center">
+                            <button class="btn btn-outline-primary">Get Started</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 border-primary">
+                        <div class="card-header bg-primary text-white text-center py-3">
+                            <h4 class="my-0">Pro</h4>
+                        </div>
+                        <div class="card-body">
+                            <h2 class="card-title text-center">$9.99<small class="text-muted">/mo</small></h2>
+                            <ul class="list-unstyled mt-3 mb-4">
+                                <li><i class="fas fa-check text-success me-2"></i> 50 document conversions/month</li>
+                                <li><i class="fas fa-check text-success me-2"></i> Advanced Q&A generation</li>
+                                <li><i class="fas fa-check text-success me-2"></i> PDF & Word downloads</li>
+                                <li><i class="fas fa-check text-success me-2"></i> Multiple choice questions</li>
+                                <li><i class="fas fa-check text-success me-2"></i> Flashcard format</li>
+                            </ul>
+                        </div>
+                        <div class="card-footer bg-white border-0 text-center">
+                            <button class="btn btn-primary">Get Pro</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <div class="card-header bg-white text-center py-3">
+                            <h4 class="my-0">Enterprise</h4>
+                        </div>
+                        <div class="card-body">
+                            <h2 class="card-title text-center">$29.99<small class="text-muted">/mo</small></h2>
+                            <ul class="list-unstyled mt-3 mb-4">
+                                <li><i class="fas fa-check text-success me-2"></i> Unlimited conversions</li>
+                                <li><i class="fas fa-check text-success me-2"></i> All Q&A formats</li>
+                                <li><i class="fas fa-check text-success me-2"></i> Priority processing</li>
+                                <li><i class="fas fa-check text-success me-2"></i> Team collaboration</li>
+                                <li><i class="fas fa-check text-success me-2"></i> API access</li>
+                            </ul>
+                        </div>
+                        <div class="card-footer bg-white border-0 text-center">
+                            <button class="btn btn-outline-primary">Contact Sales</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <h2>Contact Us</h2>
+                    <p class="lead">Have questions or feedback? We'd love to hear from you!</p>
+                    <form>
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Name</label>
+                            <input type="text" class="form-control" id="name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="message" class="form-label">Message</label>
+                            <textarea class="form-control" id="message" rows="4" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Send Message</button>
+                    </form>
+                </div>
+                <div class="col-lg-6">
+                    <div class="bg-light p-4 rounded h-100">
+                        <h4><i class="fas fa-info-circle me-2"></i>Help & Support</h4>
+                        <p>Check out our <a href="#">FAQ section</a> for answers to common questions.</p>
+                        
+                        <h4 class="mt-4"><i class="fas fa-envelope me-2"></i>Email Us</h4>
+                        <p>support@doc2qa.com</p>
+                        
+                        <h4 class="mt-4"><i class="fas fa-clock me-2"></i>Support Hours</h4>
+                        <p>Monday - Friday: 9am - 5pm EST</p>
+                        <p>Weekends: Limited availability</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <h5>Doc2QA</h5>
+                    <p>Transforming documents into interactive learning materials since 2023.</p>
+                    <div class="social-icons">
+                        <a href="#" class="text-white me-2"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-white me-2"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-white me-2"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="text-white"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-2 mb-4 mb-md-0">
+                    <h5>Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-white">Home</a></li>
+                        <li><a href="#features" class="text-white">Features</a></li>
+                        <li><a href="#pricing" class="text-white">Pricing</a></li>
+                        <li><a href="#contact" class="text-white">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-2 mb-4 mb-md-0">
+                    <h5>Legal</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-white">Privacy Policy</a></li>
+                        <li><a href="#" class="text-white">Terms of Service</a></li>
+                        <li><a href="#" class="text-white">Cookie Policy</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5>Subscribe to Our Newsletter</h5>
+                    <p>Get updates on new features and tips for using Doc2QA.</p>
+                    <form class="mt-3">
+                        <div class="input-group">
+                            <input type="email" class="form-control" placeholder="Your email">
+                            <button class="btn btn-primary" type="submit">Subscribe</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <hr class="mt-4 mb-4" style="border-color: rgba(255,255,255,0.1);">
+            <div class="text-center">
+                <p class="mb-0">&copy; 2023 Doc2QA. All rights reserved.</p>
+            </div>
         </div>
     </footer>
-    
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.4.0/mammoth.browser.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script>
-        // File upload functionality
-        document.getElementById('file-upload').addEventListener('click', () => {
-            document.getElementById('file-input').click();
-        });
+        // Initialize PDF.js worker
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.worker.min.js';
         
-        document.getElementById('file-input').addEventListener('change', handleFileSelect);
+        // DOM elements
+        const dropzone = document.getElementById('dropzone');
+        const fileInput = document.getElementById('fileInput');
+        const convertBtn = document.getElementById('convertBtn');
+        const loadingSpinner = document.getElementById('loadingSpinner');
+        const optionsPanel = document.getElementById('optionsPanel');
+        const resultContainer = document.getElementById('resultContainer');
+        const qaResults = document.getElementById('qaResults');
+        const downloadPdf = document.getElementById('downloadPdf');
+        const downloadWord = document.getElementById('downloadWord');
+        const shareBtn = document.getElementById('shareBtn');
+        const newDocumentBtn = document.getElementById('newDocumentBtn');
+        const optionBtns = document.querySelectorAll('.option-btn');
         
-        // Drag and drop functionality
-        const dropArea = document.getElementById('drop-area');
+        // Variables
+        let uploadedFile = null;
+        let extractedText = '';
+        let qaPairs = [];
+        let conversionType = 'detailed';
         
-        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
-            dropArea.addEventListener(eventName, preventDefaults, false);
-        });
-        
-        function preventDefaults(e) {
+        // Event listeners
+        dropzone.addEventListener('dragover', (e) => {
             e.preventDefault();
-            e.stopPropagation();
-        }
-        
-        ['dragenter', 'dragover'].forEach(eventName => {
-            dropArea.addEventListener(eventName, highlight, false);
+            dropzone.classList.add('dragover');
         });
         
-        ['dragleave', 'drop'].forEach(eventName => {
-            dropArea.addEventListener(eventName, unhighlight, false);
+        dropzone.addEventListener('dragleave', () => {
+            dropzone.classList.remove('dragover');
         });
         
-        function highlight() {
-            dropArea.style.borderColor = '#4361ee';
-            dropArea.style.backgroundColor = 'rgba(67, 97, 238, 0.05)';
-        }
-        
-        function unhighlight() {
-            dropArea.style.borderColor = '#e9ecef';
-            dropArea.style.backgroundColor = 'transparent';
-        }
-        
-        dropArea.addEventListener('drop', handleDrop, false);
-        
-        function handleDrop(e) {
-            const dt = e.dataTransfer;
-            const files = dt.files;
-            handleFiles(files);
-        }
-        
-        function handleFileSelect(e) {
-            const files = e.target.files;
-            handleFiles(files);
-        }
-        
-        function handleFiles(files) {
-            if (files.length > 0) {
-                const file = files[0];
-                displayFileInfo(file);
-                document.getElementById('convert-btn').disabled = false;
+        dropzone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropzone.classList.remove('dragover');
+            
+            if (e.dataTransfer.files.length) {
+                handleFileUpload(e.dataTransfer.files[0]);
             }
-        }
-        
-        function displayFileInfo(file) {
-            const fileInfo = document.getElementById('file-info');
-            const fileName = document.getElementById('file-name');
-            const fileSize = document.getElementById('file-size');
-            
-            fileName.textContent = file.name;
-            fileSize.textContent = formatFileSize(file.size);
-            fileInfo.style.display = 'flex';
-            
-            // Set file icon based on type
-            const fileIcon = fileInfo.querySelector('.file-icon i');
-            if (file.type === 'application/pdf') {
-                fileIcon.className = 'fas fa-file-pdf';
-            } else if (file.type === 'application/epub+zip') {
-                fileIcon.className = 'fas fa-file-alt';
-            } else if (file.type.includes('wordprocessingml')) {
-                fileIcon.className = 'fas fa-file-word';
-            } else if (file.type === 'text/plain') {
-                fileIcon.className = 'fas fa-file-alt';
-            } else {
-                fileIcon.className = 'fas fa-file';
-            }
-        }
-        
-        function formatFileSize(bytes) {
-            if (bytes === 0) return '0 Bytes';
-            const k = 1024;
-            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
-            const i = Math.floor(Math.log(bytes) / Math.log(k));
-            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
-        }
-        
-        // Remove file
-        document.getElementById('remove-file').addEventListener('click', () => {
-            document.getElementById('file-info').style.display = 'none';
-            document.getElementById('file-input').value = '';
-            document.getElementById('convert-btn').disabled = true;
         });
         
-        // Convert button
-        document.getElementById('convert-btn').addEventListener('click', convertToQA);
+        fileInput.addEventListener('change', () => {
+            if (fileInput.files.length) {
+                handleFileUpload(fileInput.files[0]);
+            }
+        });
         
-        function convertToQA() {
-            const progressBar = document.getElementById('progress-bar');
-            const processing = document.getElementById('processing');
-            const convertBtn = document.getElementById('convert-btn');
-            const previewPlaceholder = document.getElementById('preview-placeholder');
+        convertBtn.addEventListener('click', processDocument);
+        
+        optionBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                conversionType = btn.dataset.option;
+                optionBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                generateQAPairs();
+            });
+        });
+        
+        downloadPdf.addEventListener('click', downloadAsPdf);
+        downloadWord.addEventListener('click', downloadAsWord);
+        shareBtn.addEventListener('click', shareResults);
+        newDocumentBtn.addEventListener('click', resetTool);
+        
+        // Functions
+        function handleFileUpload(file) {
+            const validTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'text/plain'];
             
-            // Disable button and show processing
+            if (!validTypes.includes(file.type) {
+                alert('Please upload a valid PDF, Word, or text file.');
+                return;
+            }
+            
+            uploadedFile = file;
+            convertBtn.disabled = false;
+            
+            // Update UI to show file is ready
+            dropzone.innerHTML = `
+                <i class="fas fa-file-alt fa-3x mb-3" style="color: var(--accent-color);"></i>
+                <p>${file.name}</p>
+                <p class="text-success"><i class="fas fa-check-circle me-2"></i>Ready for conversion</p>
+            `;
+        }
+        
+        async function processDocument() {
+            if (!uploadedFile) return;
+            
+            loadingSpinner.style.display = 'block';
             convertBtn.disabled = true;
-            processing.style.display = 'block';
-            previewPlaceholder.style.display = 'none';
             
-            // Simulate progress
-            let progress = 0;
-            const interval = setInterval(() => {
-                progress += 5;
-                progressBar.style.width = progress + '%';
-                
-                if (progress >= 100) {
-                    clearInterval(interval);
-                    processing.style.display = 'none';
-                    convertBtn.disabled = false;
-                    showSampleQA();
+            try {
+                // Extract text based on file type
+                if (uploadedFile.type === 'application/pdf') {
+                    extractedText = await extractTextFromPdf(uploadedFile);
+                } else if (uploadedFile.type.includes('word')) {
+                    extractedText = await extractTextFromWord(uploadedFile);
+                } else if (uploadedFile.type === 'text/plain') {
+                    extractedText = await readTextFile(uploadedFile);
                 }
-            }, 200);
+                
+                // Show options panel
+                loadingSpinner.style.display = 'none';
+                optionsPanel.style.display = 'block';
+                
+                // For demo purposes, we'll generate some sample Q&A pairs
+                // In a real app, you would send the text to your backend for processing
+                generateSampleQAPairs();
+                
+            } catch (error) {
+                console.error('Error processing document:', error);
+                loadingSpinner.style.display = 'none';
+                alert('An error occurred while processing your document. Please try again.');
+                convertBtn.disabled = false;
+            }
         }
         
-        function showSampleQA() {
-            const qaContent = document.getElementById('qa-content');
-            qaContent.innerHTML = '';
-            
-            const sampleQA = [
-                { q: "What is the main theme of 'To Kill a Mockingbird'?", a: "The main themes are racial injustice and the destruction of innocence." },
-                { q: "Who are the main characters in the book?", a: "Scout Finch, Atticus Finch, Jem Finch, and Boo Radley." },
-                { q: "What important lesson does Atticus teach Scout?", a: "Atticus teaches Scout about empathy and understanding others by saying, 'You never really understand a person until you consider things from his point of view... until you climb into his skin and walk around in it.'" },
-                { q: "What does the mockingbird symbolize?", a: "The mockingbird symbolizes innocence and beauty. Atticus says it's a sin to kill a mockingbird because they don't harm anyone, they just make music for people to enjoy." },
-                { q: "How does the story address social inequality?", a: "The book addresses social inequality through the trial of Tom Robinson, a black man falsely accused of raping a white woman, and the prejudice he faces in the justice system." },
-                { q: "What role does Boo Radley play in the story?", a: "Boo Radley serves as a symbol of the town's irrational fears and prejudice. He ultimately proves to be kind and protective of the children." }
-            ];
-            
-            sampleQA.forEach((item, index) => {
-                const qaItem = document.createElement('div');
-                qaItem.className = 'qa-item';
-                qaItem.innerHTML = `
-                    <div class="question">Q${index + 1}: ${item.q}</div>
-                    <div class="answer">${item.a}</div>
-                `;
-                qaContent.appendChild(qaItem);
+        async function extractTextFromPdf(file) {
+            return new Promise((resolve, reject) => {
+                const fileReader = new FileReader();
+                
+                fileReader.onload = async function() {
+                    try {
+                        const typedArray = new Uint8Array(this.result);
+                        const pdf = await pdfjsLib.getDocument(typedArray).promise;
+                        let fullText = '';
+                        
+                        for (let i = 1; i <= pdf.numPages; i++) {
+                            const page = await pdf.getPage(i);
+                            const textContent = await page.getTextContent();
+                            const text = textContent.items.map(item => item.str).join(' ');
+                            fullText += text + '\n';
+                        }
+                        
+                        resolve(fullText);
+                    } catch (error) {
+                        reject(error);
+                    }
+                };
+                
+                fileReader.onerror = reject;
+                fileReader.readAsArrayBuffer(file);
             });
         }
         
-        // Download buttons
-        document.getElementById('download-pdf').addEventListener('click', () => {
-            alert('PDF download would start here. In a real application, this would generate and download a PDF file.');
-        });
+        async function extractTextFromWord(file) {
+            return new Promise((resolve, reject) => {
+                const fileReader = new FileReader();
+                
+                fileReader.onload = function() {
+                    const arrayBuffer = this.result;
+                    
+                    mammoth.extractRawText({arrayBuffer: arrayBuffer})
+                        .then(result => resolve(result.value))
+                        .catch(error => reject(error));
+                };
+                
+                fileReader.onerror = reject;
+                fileReader.readAsArrayBuffer(file);
+            });
+        }
         
-        document.getElementById('download-doc').addEventListener('click', () => {
-            alert('DOCX download would start here. In a real application, this would generate and download a Word document.');
-        });
+        function readTextFile(file) {
+            return new Promise((resolve, reject) => {
+                const fileReader = new FileReader();
+                
+                fileReader.onload = function() {
+                    resolve(this.result);
+                };
+                
+                fileReader.onerror = reject;
+                fileReader.readAsText(file);
+            });
+        }
         
-        document.getElementById('download-txt').addEventListener('click', () => {
-            alert('TXT download would start here. In a real application, this would generate and download a text file.');
-        });
+        function generateSampleQAPairs() {
+            // This is a simplified version for demo purposes
+            // In a real app, you would use NLP or send to a backend service
+            
+            qaPairs = [
+                {
+                    question: "What is the main purpose of this document?",
+                    answer: "The document appears to be about converting various file formats into question-answer pairs for educational or study purposes."
+                },
+                {
+                    question: "What file formats are supported by this tool?",
+                    answer: "The tool supports PDF, Word (DOC/DOCX), and plain text files."
+                },
+                {
+                    question: "How does the conversion process work?",
+                    answer: "The tool extracts text from the uploaded document, analyzes the content, and generates relevant questions and answers based on the key concepts found in the text."
+                },
+                {
+                    question: "What output formats are available?",
+                    answer: "You can download the generated Q&A pairs as PDF or editable Word documents, and share them through various platforms."
+                }
+            ];
+            
+            generateQAPairs();
+        }
         
-        document.getElementById('download-csv').addEventListener('click', () => {
-            alert('CSV download would start here. In a real application, this would generate and download a CSV file.');
-        });
+        function generateQAPairs() {
+            // Clear previous results
+            qaResults.innerHTML = '';
+            
+            // Generate Q&A items based on the selected format
+            qaPairs.forEach((pair, index) => {
+                const qaItem = document.createElement('div');
+                qaItem.className = 'qa-item';
+                
+                if (conversionType === 'detailed') {
+                    qaItem.innerHTML = `
+                        <h5>Question ${index + 1}: ${pair.question}</h5>
+                        <div class="answer p-3 bg-light rounded mt-2">
+                            <strong>Answer:</strong> ${pair.answer}
+                        </div>
+                    `;
+                } else if (conversionType === 'concise') {
+                    qaItem.innerHTML = `
+                        <div class="d-flex justify-content-between">
+                            <strong>Q:</strong> ${pair.question}
+                            <strong>A:</strong> ${pair.answer}
+                        </div>
+                    `;
+                } else if (conversionType === 'mcq') {
+                    // Generate some dummy options for demo
+                    const options = ['Option A', 'Option B', 'Option C', 'Option D'];
+                    const correctIndex = Math.floor(Math.random() * options.length);
+                    options[correctIndex] = pair.answer;
+                    
+                    qaItem.innerHTML = `
+                        <h5>Question ${index + 1}: ${pair.question}</h5>
+                        <div class="options mt-2">
+                            ${options.map((opt, i) => `
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="q${index}" id="q${index}o${i}">
+                                    <label class="form-check-label" for="q${index}o${i}">
+                                        ${opt}
+                                    </label>
+                                </div>
+                            `).join('')}
+                        </div>
+                    `;
+                } else if (conversionType === 'flashcards') {
+                    qaItem.innerHTML = `
+                        <div class="flashcard">
+                            <div class="flashcard-front p-3 bg-primary text-white rounded">
+                                <strong>Question:</strong> ${pair.question}
+                            </div>
+                            <div class="flashcard-back p-3 bg-light rounded mt-2">
+                                <strong>Answer:</strong> ${pair.answer}
+                            </div>
+                        </div>
+                    `;
+                }
+                
+                qaResults.appendChild(qaItem);
+            });
+            
+            // Show results
+            optionsPanel.style.display = 'none';
+            resultContainer.style.display = 'block';
+        }
         
-        // Initialize with sample file info
-        window.addEventListener('load', () => {
-            // Simulate file info for demo purposes
-            setTimeout(() => {
-                const fileInfo = document.getElementById('file-info');
-                fileInfo.style.display = 'flex';
-                document.getElementById('convert-btn').disabled = false;
-            }, 1000);
-        });
+        function downloadAsPdf() {
+            // In a real app, you would use jsPDF to generate a proper PDF
+            alert('In a complete implementation, this would generate and download a PDF file with all Q&A pairs.');
+            
+            // Example of how you might implement this with jsPDF:
+            /*
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            
+            doc.text('Generated Q&A Pairs', 10, 10);
+            
+            qaPairs.forEach((pair, index) => {
+                const y = 20 + (index * 40);
+                doc.text(`Question ${index + 1}: ${pair.question}`, 10, y);
+                doc.text(`Answer: ${pair.answer}`, 10, y + 10);
+            });
+            
+            doc.save('Q&A_Pairs.pdf');
+            */
+        }
+        
+        function downloadAsWord() {
+            // In a real app, you would generate a proper Word document
+            alert('In a complete implementation, this would generate and download a Word document with all Q&A pairs.');
+        }
+        
+        function shareResults() {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Generated Q&A Pairs',
+                    text: 'Check out these questions and answers generated from my document:',
+                    url: window.location.href
+                }).catch(err => {
+                    console.log('Error sharing:', err);
+                    showShareOptions();
+                });
+            } else {
+                showShareOptions();
+            }
+        }
+        
+        function showShareOptions() {
+            alert('In a complete implementation, this would show various sharing options including email, social media, etc.');
+        }
+        
+        function resetTool() {
+            uploadedFile = null;
+            extractedText = '';
+            qaPairs = [];
+            
+            fileInput.value = '';
+            convertBtn.disabled = true;
+            resultContainer.style.display = 'none';
+            optionsPanel.style.display = 'none';
+            
+            dropzone.innerHTML = `
+                <i class="fas fa-cloud-upload-alt fa-3x mb-3" style="color: var(--accent-color);"></i>
+                <p>Drag & drop your PDF or Word document here</p>
+                <p class="text-muted">or</p>
+                <button class="btn btn-primary file-upload-btn">
+                    <i class="fas fa-folder-open me-2"></i>Browse Files
+                    <input type="file" id="fileInput" class="file-upload-input" accept=".pdf,.doc,.docx,.txt">
+                </button>
+            `;
+            
+            // Reattach event listeners to the new file input
+            document.querySelector('.file-upload-input').addEventListener('change', () => {
+                if (fileInput.files.length) {
+                    handleFileUpload(fileInput.files[0]);
+                }
+            });
+        }
     </script>
 </body>
 </html>
