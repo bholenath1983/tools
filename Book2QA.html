@@ -3,291 +3,868 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Universal File Compressor - Compress Images, Word, pdf, Excel, ppt Documents & More</title>
-    <meta name="description" content="Free online file compressor for images, PDFs, Word docs, Excel sheets, and PowerPoint presentations. Reduce file sizes while maintaining quality.">
-    <meta name="keywords" content="file compressor, image compression, PDF compressor, document compressor,  Word document compressor, Excel document compressor, reduce file size">
-    
-    <!-- SEO Meta Tags -->
-    <link rel="canonical" href="https://yourdomain.com/compressor">
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="Universal File Compressor">
-    <meta property="og:description" content="Free online file compression tool for all document types">
-    
-    <!-- Styles -->
+    <meta name="description" content="Convert books into question-answer formats instantly. Supports PDF, EPUB, DOCX and more. Free online tool for students and educators.">
+    <meta name="keywords" content="book converter, Q&A generator, PDF to questions, study tool, ebook converter">
+    <title>Book2QA - Convert Books to Question-Answer Format | Free Online Tool</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
     <style>
         :root {
-            --primary-color: #2c3e50;
-            --secondary-color: #3498db;
+            --primary: #4361ee;
+            --secondary: #3f37c9;
+            --accent: #4cc9f0;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --success: #4ade80;
+            --warning: #facc15;
+            --danger: #f87171;
+            --gray: #6c757d;
+            --light-gray: #e9ecef;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
         }
-
+        
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
-        }
-
-        body {
+            box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
+            color: var(--dark);
             line-height: 1.6;
-            background: #f8f9fa;
+            min-height: 100vh;
+            padding-bottom: 2rem;
         }
-
+        
         .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-            display: grid;
-            grid-template-columns: 3fr 1fr;
-            gap: 30px;
-        }
-
-        .main-content {
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
-        }
-
-        .upload-section {
-            border: 2px dashed var(--primary-color);
-            padding: 40px;
-            text-align: center;
-            margin: 20px 0;
-            position: relative;
-        }
-
-        #fileInput {
-            position: absolute;
-            opacity: 0;
             width: 100%;
-            height: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+        
+        header {
+            background: linear-gradient(120deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 1.5rem 0;
+            box-shadow: var(--shadow);
+            position: sticky;
             top: 0;
-            left: 0;
-            cursor: pointer;
+            z-index: 100;
         }
-
-        .file-details {
-            margin-top: 20px;
-            padding: 15px;
-            background: #f8f9fa;
-            border-radius: 5px;
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
         }
-
-        .progress-bar {
-            height: 20px;
-            background: #eee;
-            border-radius: 10px;
-            overflow: hidden;
-            margin: 20px 0;
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.75rem;
+            font-weight: 700;
         }
-
-        .progress {
-            width: 0;
-            height: 100%;
-            background: var(--secondary-color);
-            transition: width 0.3s ease;
+        
+        .logo i {
+            color: var(--accent);
         }
-
-        .ad-unit {
-            background: #fff;
-            padding: 20px;
-            margin: 20px 0;
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+        
+        nav a {
+            color: rgba(255, 255, 255, 0.85);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 0.5rem 0.75rem;
+            border-radius: 0.25rem;
+        }
+        
+        nav a:hover, nav a.active {
+            color: white;
+            background: rgba(255, 255, 255, 0.15);
+        }
+        
+        .hero {
             text-align: center;
-            border-radius: 8px;
+            padding: 4rem 1rem;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="%234361ee" opacity="0.05"/><path d="M0 0L100 100M100 0L0 100" stroke="%234cc9f0" stroke-width="0.5" opacity="0.2"/></svg>');
+            background-size: cover;
         }
-
-        @media (max-width: 768px) {
-            .container {
+        
+        .hero h1 {
+            font-size: 2.75rem;
+            margin-bottom: 1.25rem;
+            background: linear-gradient(90deg, var(--secondary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .hero p {
+            font-size: 1.25rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            color: var(--gray);
+        }
+        
+        .features {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+        
+        .feature {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            box-shadow: var(--shadow);
+            text-align: center;
+            width: 180px;
+            transition: var(--transition);
+        }
+        
+        .feature:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .feature i {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        @media (max-width: 992px) {
+            .main-content {
                 grid-template-columns: 1fr;
-                padding: 10px;
+            }
+        }
+        
+        .upload-section {
+            background: white;
+            border-radius: 1rem;
+            box-shadow: var(--shadow);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--secondary);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        
+        .section-title i {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .upload-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .upload-option {
+            flex: 1;
+            min-width: 250px;
+            border: 2px dashed var(--light-gray);
+            border-radius: 0.75rem;
+            padding: 2rem 1.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .upload-option:hover {
+            border-color: var(--accent);
+            background-color: rgba(76, 201, 240, 0.05);
+        }
+        
+        .upload-option i {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .upload-option h3 {
+            margin-bottom: 0.75rem;
+            color: var(--secondary);
+        }
+        
+        .file-input {
+            display: none;
+        }
+        
+        .preview-section {
+            background: white;
+            border-radius: 1rem;
+            box-shadow: var(--shadow);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .preview-container {
+            border: 1px solid var(--light-gray);
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            min-height: 300px;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+        
+        .qa-item {
+            background: var(--light);
+            border-left: 4px solid var(--primary);
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 0 0.5rem 0.5rem 0;
+        }
+        
+        .qa-item .question {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--secondary);
+        }
+        
+        .download-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-primary:hover {
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+        }
+        
+        .btn-outline:hover {
+            background: rgba(67, 97, 238, 0.05);
+        }
+        
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+        
+        .ad-container {
+            background: white;
+            border-radius: 0.75rem;
+            box-shadow: var(--shadow);
+            padding: 1.5rem;
+            text-align: center;
+            min-height: 250px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .ad-container h3 {
+            color: var(--gray);
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+        
+        .ad-placeholder {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(45deg, var(--light-gray), #f0f0f0);
+            border-radius: 0.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+        
+        .ad-placeholder i {
+            font-size: 2rem;
+            margin-bottom: 0.75rem;
+            color: var(--gray);
+        }
+        
+        .stats {
+            background: white;
+            border-radius: 0.75rem;
+            box-shadow: var(--shadow);
+            padding: 1.5rem;
+        }
+        
+        .stat-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--light-gray);
+        }
+        
+        .stat-item:last-child {
+            border-bottom: none;
+        }
+        
+        .stat-value {
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        footer {
+            text-align: center;
+            padding: 2rem 1rem;
+            margin-top: 3rem;
+            color: var(--gray);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--light-gray);
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
             }
             
-            .upload-section {
-                padding: 20px;
+            nav ul {
+                gap: 0.75rem;
+                flex-wrap: wrap;
+                justify-content: center;
             }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .feature {
+                width: 140px;
+                padding: 1rem;
+            }
+            
+            .upload-options {
+                flex-direction: column;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .logo {
+                font-size: 1.5rem;
+            }
+            
+            .hero {
+                padding: 2.5rem 1rem;
+            }
+            
+            .hero h1 {
+                font-size: 1.75rem;
+            }
+            
+            .features {
+                gap: 1rem;
+            }
+            
+            .feature {
+                width: 100%;
+                max-width: 250px;
+            }
+            
+            .section-title {
+                font-size: 1.25rem;
+            }
+        }
+        
+        /* Progress bar */
+        .progress-container {
+            margin: 1.5rem 0;
+            background: var(--light-gray);
+            border-radius: 0.5rem;
+            height: 10px;
+            overflow: hidden;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent), var(--primary));
+            width: 0%;
+            transition: width 0.4s ease;
+        }
+        
+        /* File info */
+        .file-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 1rem;
+            padding: 1rem;
+            background: var(--light);
+            border-radius: 0.5rem;
+        }
+        
+        .file-icon {
+            font-size: 2rem;
+            color: var(--primary);
+        }
+        
+        .file-details {
+            flex: 1;
+        }
+        
+        .file-name {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+        
+        .file-size {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+        
+        /* Simulated processing animation */
+        .processing {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+        }
+        
+        .processing-spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid var(--light-gray);
+            border-top: 5px solid var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
     </style>
 </head>
 <body>
-    <!-- Header Ad Unit -->
-    <div class="ad-unit">
-        <!-- Google AdSense Header -->
-        <ins class="adsbygoogle"
-            style="display:block"
-            data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
-            data-ad-slot="XXXXXXXXXX"
-            data-ad-format="auto"
-            data-full-width-responsive="true"></ins>
-        <script>
-            (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
-    </div>
-
-    <main class="container">
-        <div class="main-content">
-            <h1>Universal File Compressor</h1>
-            <p class="subtitle">Reduce file sizes without quality loss</p>
-
-            <div class="upload-section">
-                <input type="file" id="fileInput" accept="image/*,.pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx">
-                <p>Drag & drop files or click to upload</p>
-                <p>Supported formats: JPG, PNG, PDF, DOC, XLS, PPT</p>
-            </div>
-
-            <div class="file-details">
-                <h3>Selected File:</h3>
-                <p id="fileName">No file selected</p>
-                <p id="fileSize">-</p>
-            </div>
-
-            <div class="compression-options">
-                <label>Compression Level:</label>
-                <select id="compressionLevel">
-                    <option value="0.7">Medium (Recommended)</option>
-                    <option value="0.5">High Compression</option>
-                    <option value="0.9">Low Compression</option>
-                </select>
-            </div>
-
-            <div class="progress-bar">
-                <div class="progress" id="progress"></div>
-            </div>
-
-            <button id="compressBtn" class="btn">Compress File</button>
-
-            <div class="download-section" id="downloadSection" style="display: none;">
-                <h3>Compressed File:</h3>
-                <p id="compressedSize"></p>
-                <a id="downloadLink" class="btn">Download</a>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-book-open"></i>
+                    <span>Book2QA</span>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#" class="active">Home</a></li>
+                        <li><a href="#">How It Works</a></li>
+                        <li><a href="#">Features</a></li>
+                        <li><a href="#">Pricing</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </nav>
             </div>
         </div>
-
-        <!-- Sidebar Ad Unit -->
-        <aside class="sidebar">
-            <div class="ad-unit">
-                <!-- Google AdSense Sidebar -->
-                <ins class="adsbygoogle"
-                    style="display:block"
-                    data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
-                    data-ad-slot="XXXXXXXXXX"
-                    data-ad-format="auto"
-                    data-full-width-responsive="true"></ins>
-                <script>
-                    (adsbygoogle = window.adsbygoogle || []).push({});
-                </script>
+    </header>
+    
+    <section class="hero">
+        <div class="container">
+            <h1>Transform Books into Interactive Q&A</h1>
+            <p>Upload any book format and instantly generate question-answer pairs for enhanced learning and study efficiency.</p>
+            
+            <div class="features">
+                <div class="feature">
+                    <i class="fas fa-file-upload"></i>
+                    <h3>Upload</h3>
+                    <p>Multiple upload options</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-cogs"></i>
+                    <h3>Convert</h3>
+                    <p>AI-powered conversion</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-download"></i>
+                    <h3>Download</h3>
+                    <p>Multiple formats</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-share-alt"></i>
+                    <h3>Share</h3>
+                    <p>Easy sharing options</p>
+                </div>
             </div>
-        </aside>
-    </main>
-
-    <!-- Footer Ad Unit -->
-    <div class="ad-unit">
-        <!-- Google AdSense Footer -->
-        <ins class="adsbygoogle"
-            style="display:block"
-            data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
-            data-ad-slot="XXXXXXXXXX"
-            data-ad-format="auto"
-            data-full-width-responsive="true"></ins>
-        <script>
-            (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
+        </div>
+    </section>
+    
+    <div class="container">
+        <div class="main-content">
+            <div class="content">
+                <div class="upload-section">
+                    <h2 class="section-title"><i class="fas fa-cloud-upload-alt"></i> Upload Your Book</h2>
+                    
+                    <div class="upload-options">
+                        <div class="upload-option" id="file-upload">
+                            <i class="fas fa-folder-open"></i>
+                            <h3>Select File</h3>
+                            <p>Choose from your device</p>
+                            <input type="file" class="file-input" id="file-input" accept=".pdf,.epub,.docx,.txt,.mobi">
+                        </div>
+                        
+                        <div class="upload-option" id="drop-area">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <h3>Drag & Drop</h3>
+                            <p>Drop files here</p>
+                        </div>
+                        
+                        <div class="upload-option">
+                            <i class="fas fa-link"></i>
+                            <h3>From URL</h3>
+                            <p>Enter book URL</p>
+                        </div>
+                    </div>
+                    
+                    <div class="file-info" id="file-info" style="display: none;">
+                        <div class="file-icon">
+                            <i class="fas fa-file-pdf"></i>
+                        </div>
+                        <div class="file-details">
+                            <div class="file-name" id="file-name">sample-book.pdf</div>
+                            <div class="file-size" id="file-size">2.4 MB</div>
+                        </div>
+                        <button class="btn btn-outline" id="remove-file">
+                            <i class="fas fa-times"></i> Remove
+                        </button>
+                    </div>
+                    
+                    <div class="progress-container">
+                        <div class="progress-bar" id="progress-bar"></div>
+                    </div>
+                    
+                    <div class="processing" id="processing">
+                        <div class="processing-spinner"></div>
+                        <h3>Processing your book...</h3>
+                        <p>Generating question-answer pairs. This may take a few moments.</p>
+                    </div>
+                    
+                    <button class="btn btn-primary" id="convert-btn" disabled>
+                        <i class="fas fa-sync-alt"></i> Convert to Q&A
+                    </button>
+                </div>
+                
+                <div class="preview-section">
+                    <h2 class="section-title"><i class="fas fa-eye"></i> Generated Q&A Preview</h2>
+                    
+                    <div class="preview-container" id="preview-container">
+                        <p class="text-center" id="preview-placeholder">Your generated questions and answers will appear here after conversion.</p>
+                        <div id="qa-content"></div>
+                    </div>
+                    
+                    <div class="download-options">
+                        <button class="btn btn-primary" id="download-pdf">
+                            <i class="fas fa-file-pdf"></i> Download PDF
+                        </button>
+                        <button class="btn btn-outline" id="download-doc">
+                            <i class="fas fa-file-word"></i> Download DOCX
+                        </button>
+                        <button class="btn btn-outline" id="download-txt">
+                            <i class="fas fa-file-alt"></i> Download TXT
+                        </button>
+                        <button class="btn btn-outline" id="download-csv">
+                            <i class="fas fa-file-csv"></i> Download CSV
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="sidebar">
+                <div class="ad-container">
+                    <h3>Advertisement Space</h3>
+                    <div class="ad-placeholder">
+                        <i class="fab fa-google"></i>
+                        <p>Google AdSense</p>
+                        <small>Ad Unit ID: CA-PUB-XXXXXX</small>
+                    </div>
+                </div>
+                
+                <div class="ad-container">
+                    <h3>Advertisement Space</h3>
+                    <div class="ad-placeholder">
+                        <i class="fas fa-ad"></i>
+                        <p>Ad Space Available</p>
+                        <small>300x250 Ad Unit</small>
+                    </div>
+                </div>
+                
+                <div class="ad-container">
+                    <h3>Advertisement Space</h3>
+                    <div class="ad-placeholder">
+                        <i class="fas fa-bullhorn"></i>
+                        <p>Your Ad Here</p>
+                        <small>Contact for advertising</small>
+                    </div>
+                </div>
+                
+                <div class="stats">
+                    <h3>Conversion Statistics</h3>
+                    <div class="stat-item">
+                        <span>Books Processed:</span>
+                        <span class="stat-value">14,892</span>
+                    </div>
+                    <div class="stat-item">
+                        <span>Questions Generated:</span>
+                        <span class="stat-value">1.2M+</span>
+                    </div>
+                    <div class="stat-item">
+                        <span>Active Users:</span>
+                        <span class="stat-value">5,421</span>
+                    </div>
+                    <div class="stat-item">
+                        <span>Success Rate:</span>
+                        <span class="stat-value">98.7%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-
+    
+    <footer>
+        <div class="container">
+            <p>© 2023 Book2QA - All rights reserved. | Privacy Policy | Terms of Service</p>
+            <p>This is a demo application. Actual book conversion would require backend processing.</p>
+        </div>
+    </footer>
+    
     <script>
-        // Basic Image Compression (Client-side example)
-        async function compressImage(file, quality) {
-            return new Promise((resolve) => {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    const img = new Image();
-                    img.onload = function() {
-                        const canvas = document.createElement('canvas');
-                        const ctx = canvas.getContext('2d');
-                        
-                        canvas.width = img.width;
-                        canvas.height = img.height;
-                        ctx.drawImage(img, 0, 0);
-                        
-                        canvas.toBlob((blob) => {
-                            resolve(new File([blob], file.name, {
-                                type: 'image/jpeg',
-                                lastModified: Date.now()
-                            }));
-                        }, 'image/jpeg', quality);
-                    };
-                    img.src = e.target.result;
-                };
-                reader.readAsDataURL(file);
+        // File upload functionality
+        document.getElementById('file-upload').addEventListener('click', () => {
+            document.getElementById('file-input').click();
+        });
+        
+        document.getElementById('file-input').addEventListener('change', handleFileSelect);
+        
+        // Drag and drop functionality
+        const dropArea = document.getElementById('drop-area');
+        
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            dropArea.addEventListener(eventName, preventDefaults, false);
+        });
+        
+        function preventDefaults(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+        
+        ['dragenter', 'dragover'].forEach(eventName => {
+            dropArea.addEventListener(eventName, highlight, false);
+        });
+        
+        ['dragleave', 'drop'].forEach(eventName => {
+            dropArea.addEventListener(eventName, unhighlight, false);
+        });
+        
+        function highlight() {
+            dropArea.style.borderColor = '#4361ee';
+            dropArea.style.backgroundColor = 'rgba(67, 97, 238, 0.05)';
+        }
+        
+        function unhighlight() {
+            dropArea.style.borderColor = '#e9ecef';
+            dropArea.style.backgroundColor = 'transparent';
+        }
+        
+        dropArea.addEventListener('drop', handleDrop, false);
+        
+        function handleDrop(e) {
+            const dt = e.dataTransfer;
+            const files = dt.files;
+            handleFiles(files);
+        }
+        
+        function handleFileSelect(e) {
+            const files = e.target.files;
+            handleFiles(files);
+        }
+        
+        function handleFiles(files) {
+            if (files.length > 0) {
+                const file = files[0];
+                displayFileInfo(file);
+                document.getElementById('convert-btn').disabled = false;
+            }
+        }
+        
+        function displayFileInfo(file) {
+            const fileInfo = document.getElementById('file-info');
+            const fileName = document.getElementById('file-name');
+            const fileSize = document.getElementById('file-size');
+            
+            fileName.textContent = file.name;
+            fileSize.textContent = formatFileSize(file.size);
+            fileInfo.style.display = 'flex';
+            
+            // Set file icon based on type
+            const fileIcon = fileInfo.querySelector('.file-icon i');
+            if (file.type === 'application/pdf') {
+                fileIcon.className = 'fas fa-file-pdf';
+            } else if (file.type === 'application/epub+zip') {
+                fileIcon.className = 'fas fa-file-alt';
+            } else if (file.type.includes('wordprocessingml')) {
+                fileIcon.className = 'fas fa-file-word';
+            } else if (file.type === 'text/plain') {
+                fileIcon.className = 'fas fa-file-alt';
+            } else {
+                fileIcon.className = 'fas fa-file';
+            }
+        }
+        
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+        
+        // Remove file
+        document.getElementById('remove-file').addEventListener('click', () => {
+            document.getElementById('file-info').style.display = 'none';
+            document.getElementById('file-input').value = '';
+            document.getElementById('convert-btn').disabled = true;
+        });
+        
+        // Convert button
+        document.getElementById('convert-btn').addEventListener('click', convertToQA);
+        
+        function convertToQA() {
+            const progressBar = document.getElementById('progress-bar');
+            const processing = document.getElementById('processing');
+            const convertBtn = document.getElementById('convert-btn');
+            const previewPlaceholder = document.getElementById('preview-placeholder');
+            
+            // Disable button and show processing
+            convertBtn.disabled = true;
+            processing.style.display = 'block';
+            previewPlaceholder.style.display = 'none';
+            
+            // Simulate progress
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += 5;
+                progressBar.style.width = progress + '%';
+                
+                if (progress >= 100) {
+                    clearInterval(interval);
+                    processing.style.display = 'none';
+                    convertBtn.disabled = false;
+                    showSampleQA();
+                }
+            }, 200);
+        }
+        
+        function showSampleQA() {
+            const qaContent = document.getElementById('qa-content');
+            qaContent.innerHTML = '';
+            
+            const sampleQA = [
+                { q: "What is the main theme of 'To Kill a Mockingbird'?", a: "The main themes are racial injustice and the destruction of innocence." },
+                { q: "Who are the main characters in the book?", a: "Scout Finch, Atticus Finch, Jem Finch, and Boo Radley." },
+                { q: "What important lesson does Atticus teach Scout?", a: "Atticus teaches Scout about empathy and understanding others by saying, 'You never really understand a person until you consider things from his point of view... until you climb into his skin and walk around in it.'" },
+                { q: "What does the mockingbird symbolize?", a: "The mockingbird symbolizes innocence and beauty. Atticus says it's a sin to kill a mockingbird because they don't harm anyone, they just make music for people to enjoy." },
+                { q: "How does the story address social inequality?", a: "The book addresses social inequality through the trial of Tom Robinson, a black man falsely accused of raping a white woman, and the prejudice he faces in the justice system." },
+                { q: "What role does Boo Radley play in the story?", a: "Boo Radley serves as a symbol of the town's irrational fears and prejudice. He ultimately proves to be kind and protective of the children." }
+            ];
+            
+            sampleQA.forEach((item, index) => {
+                const qaItem = document.createElement('div');
+                qaItem.className = 'qa-item';
+                qaItem.innerHTML = `
+                    <div class="question">Q${index + 1}: ${item.q}</div>
+                    <div class="answer">${item.a}</div>
+                `;
+                qaContent.appendChild(qaItem);
             });
         }
-
-        // File Input Handler
-        document.getElementById('fileInput').addEventListener('change', async (e) => {
-            const file = e.target.files[0];
-            if (!file) return;
-
-            // Update file details
-            document.getElementById('fileName').textContent = file.name;
-            document.getElementById('fileSize').textContent = 
-                `Original Size: ${(file.size / 1024).toFixed(2)} KB`;
+        
+        // Download buttons
+        document.getElementById('download-pdf').addEventListener('click', () => {
+            alert('PDF download would start here. In a real application, this would generate and download a PDF file.');
         });
-
-        // Compression Handler
-        document.getElementById('compressBtn').addEventListener('click', async () => {
-            const file = document.getElementById('fileInput').files[0];
-            const quality = parseFloat(document.getElementById('compressionLevel').value);
-
-            if (!file) {
-                alert('Please select a file first!');
-                return;
-            }
-
-            // Show progress
-            const progressBar = document.getElementById('progress');
-            progressBar.style.width = '30%';
-
-            try {
-                let compressedFile;
-                if (file.type.startsWith('image/')) {
-                    compressedFile = await compressImage(file, quality);
-                } else {
-                    // For other file types, you would need server-side processing
-                    alert('Document compression requires server-side processing');
-                    return;
-                }
-
-                progressBar.style.width = '100%';
-                
-                // Show download section
-                document.getElementById('downloadSection').style.display = 'block';
-                document.getElementById('compressedSize').textContent = 
-                    `Compressed Size: ${(compressedFile.size / 1024).toFixed(2)} KB`;
-                
-                const downloadLink = document.getElementById('downloadLink');
-                downloadLink.href = URL.createObjectURL(compressedFile);
-                downloadLink.download = `compressed_${file.name}`;
-            } catch (error) {
-                console.error('Compression error:', error);
-                alert('Error compressing file');
-            }
+        
+        document.getElementById('download-doc').addEventListener('click', () => {
+            alert('DOCX download would start here. In a real application, this would generate and download a Word document.');
         });
-    </script>
-
-    <!-- SEO Structured Data -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "WebApplication",
-        "name": "Universal File Compressor",
-        "description": "Online tool for compressing images and documents",
-        "applicationCategory": "Utility",
-        "operatingSystem": "All",
-        "offers": {
-            "@type": "Offer",
-            "price": "0.00",
-            "priceCurrency": "USD"
-        }
-    }
+        
+        document.getElementById('download-txt').addEventListener('click', () => {
+            alert('TXT download would start here. In a real application, this would generate and download a text file.');
+        });
+        
+        document.getElementById('download-csv').addEventListener('click', () => {
+            alert('CSV download would start here. In a real application, this would generate and download a CSV file.');
+        });
+        
+        // Initialize with sample file info
+        window.addEventListener('load', () => {
+            // Simulate file info for demo purposes
+            setTimeout(() => {
+                const fileInfo = document.getElementById('file-info');
+                fileInfo.style.display = 'flex';
+                document.getElementById('convert-btn').disabled = false;
+            }, 1000);
+        });
     </script>
 </body>
 </html>
