@@ -3,877 +3,995 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Convert your PDF and Word documents into question-answer formats instantly. Perfect for students, researchers, and content creators.">
-    <meta name="keywords" content="Q&A generator, PDF to questions, Word to quiz, document converter, study tool">
-    <title>Doc2QA - Convert Documents to Question-Answer Format</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <meta name="description" content="Convert your PDF and Word documents into question-answer formats instantly. Free online tool for students, researchers, and professionals.">
+    <meta name="keywords" content="question answer generator, PDF to Q&A, Word to Q&A, document converter, study tool">
+    <meta name="author" content="Q&A Tool">
+    <title>Document to Q&A Converter | Transform PDF/Word to Questions & Answers</title>
+    
+    <!-- Open Graph / Social Media Meta Tags -->
+    <meta property="og:title" content="Document to Q&A Converter">
+    <meta property="og:description" content="Convert your PDF and Word documents into question-answer formats instantly.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://yourwebsite.com">
+    <meta property="og:image" content="https://yourwebsite.com/images/preview.jpg">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://yourwebsite.com">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Document to Q&A Converter",
+      "url": "https://yourwebsite.com",
+      "description": "Convert your PDF and Word documents into question-answer formats instantly.",
+      "applicationCategory": "EducationalApplication",
+      "operatingSystem": "Web"
+    }
+    </script>
+    
     <style>
         :root {
-            --primary-color: #4a6fa5;
-            --secondary-color: #166088;
-            --accent-color: #4fc3f7;
+            --primary-color: #4361ee;
+            --secondary-color: #3f37c9;
+            --accent-color: #4cc9f0;
             --light-color: #f8f9fa;
-            --dark-color: #343a40;
+            --dark-color: #212529;
+            --success-color: #4bb543;
+            --warning-color: #fca311;
+            --danger-color: #e63946;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
         
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Roboto', sans-serif;
             line-height: 1.6;
-            color: #333;
+            color: var(--dark-color);
             background-color: #f5f7fa;
+            overflow-x: hidden;
         }
         
-        .navbar-brand {
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background-color: white;
+            box-shadow: var(--box-shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            font-family: 'Poppins', sans-serif;
             font-weight: 700;
+            font-size: 24px;
+            color: var(--primary-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo i {
+            margin-right: 10px;
+            color: var(--accent-color);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 25px;
+        }
+        
+        nav ul li a {
+            text-decoration: none;
+            color: var(--dark-color);
+            font-weight: 500;
+            transition: var(--transition);
+        }
+        
+        nav ul li a:hover {
             color: var(--primary-color);
         }
         
-        .hero-section {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            color: white;
-            padding: 3rem 0;
-            margin-bottom: 2rem;
-            border-radius: 0 0 20px 20px;
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--dark-color);
         }
         
-        .upload-container {
-            background: white;
-            border-radius: 10px;
-            padding: 2rem;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            margin-bottom: 2rem;
-        }
-        
-        .dropzone {
-            border: 2px dashed #ccc;
-            border-radius: 8px;
-            padding: 3rem;
+        .hero {
+            padding: 60px 0;
             text-align: center;
+            background: linear-gradient(135deg, #4361ee 0%, #4cc9f0 100%);
+            color: white;
+        }
+        
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+        
+        .main-content {
+            padding: 40px 0;
+        }
+        
+        .tool-container {
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .section-title {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+        
+        .upload-area {
+            border: 2px dashed #ccc;
+            border-radius: var(--border-radius);
+            padding: 40px;
+            text-align: center;
+            margin-bottom: 30px;
+            transition: var(--transition);
             cursor: pointer;
-            transition: all 0.3s;
-            margin-bottom: 1rem;
         }
         
-        .dropzone:hover, .dropzone.dragover {
-            border-color: var(--accent-color);
-            background-color: rgba(79, 195, 247, 0.05);
+        .upload-area:hover {
+            border-color: var(--primary-color);
+            background-color: rgba(67, 97, 238, 0.05);
         }
         
-        .file-upload-btn {
-            position: relative;
-            overflow: hidden;
+        .upload-area i {
+            font-size: 48px;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+        
+        .upload-area p {
+            margin-bottom: 15px;
+        }
+        
+        .btn {
             display: inline-block;
+            padding: 12px 24px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
         }
         
-        .file-upload-input {
-            position: absolute;
-            left: 0;
-            top: 0;
-            opacity: 0;
-            width: 100%;
-            height: 100%;
-            cursor: pointer;
+        .btn:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .btn i {
+            margin-right: 8px;
+        }
+        
+        #fileInput {
+            display: none;
+        }
+        
+        .file-info {
+            margin-top: 15px;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .options-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .option-card {
+            flex: 1;
+            min-width: 200px;
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 20px;
+            transition: var(--transition);
+        }
+        
+        .option-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .option-card i {
+            font-size: 32px;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+        
+        .option-card h3 {
+            margin-bottom: 10px;
+            font-size: 1.2rem;
         }
         
         .result-container {
             display: none;
-            margin-top: 2rem;
+            margin-top: 30px;
+        }
+        
+        .result-actions {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .result-content {
+            background-color: #f8f9fa;
+            border-radius: var(--border-radius);
+            padding: 20px;
+            border-left: 4px solid var(--primary-color);
         }
         
         .qa-item {
-            background: white;
-            border-radius: 8px;
-            padding: 1.5rem;
-            margin-bottom: 1rem;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .qa-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        
+        .qa-question {
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 10px;
         }
         
         .ad-container {
-            background: #f8f9fa;
-            border: 1px dashed #ccc;
-            padding: 1rem;
+            background-color: #f1f3f5;
+            border-radius: var(--border-radius);
+            padding: 20px;
             text-align: center;
-            margin: 1rem 0;
-            min-height: 90px;
+            margin: 30px 0;
+            min-height: 100px;
             display: flex;
             align-items: center;
             justify-content: center;
         }
         
-        .footer {
-            background: var(--dark-color);
+        .ad-label {
+            font-size: 12px;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+        
+        footer {
+            background-color: var(--dark-color);
             color: white;
-            padding: 2rem 0;
-            margin-top: 3rem;
+            padding: 40px 0 20px;
+        }
+        
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-col h3 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 40px;
+            height: 2px;
+            background-color: var(--accent-color);
+        }
+        
+        .footer-col ul {
+            list-style: none;
+        }
+        
+        .footer-col ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-col ul li a {
+            color: #adb5bd;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .footer-col ul li a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-links a {
+            color: white;
+            font-size: 20px;
+            transition: var(--transition);
+        }
+        
+        .social-links a:hover {
+            color: var(--accent-color);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #495057;
+            font-size: 14px;
+            color: #adb5bd;
+        }
+        
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
         }
         
         .loading-spinner {
-            display: none;
-            text-align: center;
-            margin: 2rem 0;
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+            border-top: 4px solid var(--primary-color);
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
         }
         
-        .option-btn {
-            margin: 0.5rem;
-            white-space: nowrap;
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
         
+        /* Responsive Styles */
         @media (max-width: 768px) {
-            .hero-section {
-                padding: 2rem 0;
+            .header-container {
+                padding: 15px;
             }
             
-            .dropzone {
-                padding: 1.5rem;
-            }
-            
-            .option-btn {
-                margin: 0.25rem;
+            nav {
+                position: fixed;
+                top: 70px;
+                left: 0;
                 width: 100%;
+                background-color: white;
+                box-shadow: var(--box-shadow);
+                padding: 20px;
+                transform: translateY(-150%);
+                transition: var(--transition);
+                z-index: 99;
+            }
+            
+            nav.active {
+                transform: translateY(0);
+            }
+            
+            nav ul {
+                flex-direction: column;
+            }
+            
+            nav ul li {
+                margin: 0 0 15px 0;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .upload-area {
+                padding: 30px 15px;
+            }
+            
+            .options-container {
+                flex-direction: column;
+            }
+            
+            .result-actions {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero {
+                padding: 40px 0;
+            }
+            
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .tool-container {
+                padding: 20px 15px;
+            }
+            
+            .section-title {
+                font-size: 1.5rem;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
-        <div class="container">
-            <a class="navbar-brand" href="#">
-                <i class="fas fa-question-circle me-2"></i>Doc2QA
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <a href="#" class="logo">
+                <i class="fas fa-question-circle"></i>
+                Q&A Tool
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#features">Features</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#how-it-works">How It Works</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#pricing">Pricing</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#contact">Contact</a>
-                    </li>
+            <nav id="mainNav">
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">How It Works</a></li>
+                    <li><a href="#">Features</a></li>
+                    <li><a href="#">Pricing</a></li>
+                    <li><a href="#">Contact</a></li>
                 </ul>
-            </div>
+            </nav>
         </div>
-    </nav>
+    </header>
 
     <!-- Hero Section -->
-    <section class="hero-section">
-        <div class="container text-center">
+    <section class="hero">
+        <div class="container">
             <h1>Convert Documents to Q&A Format Instantly</h1>
-            <p class="lead">Upload your PDF or Word documents and get comprehensive question-answer pairs automatically generated</p>
+            <p>Upload your PDF or Word documents and get automatically generated questions and answers to enhance your learning and research.</p>
+            <a href="#tool" class="btn btn-outline">
+                <i class="fas fa-play"></i> Try It Now
+            </a>
         </div>
     </section>
 
     <!-- Ad Container 1 -->
     <div class="container">
         <div class="ad-container">
-            <!-- Replace with your Google AdSense code -->
-            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_ADSENSE_ID"
-                crossorigin="anonymous"></script>
-            <!-- Ad Unit 1 -->
-            <ins class="adsbygoogle"
-                style="display:block"
-                data-ad-client="ca-pub-YOUR_ADSENSE_ID"
-                data-ad-slot="YOUR_AD_UNIT_ID_1"
-                data-ad-format="auto"
-                data-full-width-responsive="true"></ins>
-            <script>
-                (adsbygoogle = window.adsbygoogle || []).push({});
-            </script>
-        </div>
-    </div>
-
-    <!-- Main Content -->
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 mx-auto">
-                <div class="upload-container">
-                    <h2 class="text-center mb-4"><i class="fas fa-file-upload me-2"></i>Upload Your Document</h2>
-                    
-                    <div id="dropzone" class="dropzone">
-                        <i class="fas fa-cloud-upload-alt fa-3x mb-3" style="color: var(--accent-color);"></i>
-                        <p>Drag & drop your PDF or Word document here</p>
-                        <p class="text-muted">or</p>
-                        <button class="btn btn-primary file-upload-btn">
-                            <i class="fas fa-folder-open me-2"></i>Browse Files
-                            <input type="file" id="fileInput" class="file-upload-input" accept=".pdf,.doc,.docx,.txt">
-                        </button>
-                    </div>
-                    
-                    <div class="text-center mt-3">
-                        <p class="text-muted">Supported formats: PDF, DOC, DOCX, TXT</p>
-                    </div>
-                    
-                    <div class="text-center mt-4">
-                        <button id="convertBtn" class="btn btn-success btn-lg" disabled>
-                            <i class="fas fa-magic me-2"></i>Generate Q&A
-                        </button>
-                    </div>
-                    
-                    <div id="loadingSpinner" class="loading-spinner">
-                        <div class="spinner-border text-primary" role="status">
-                            <span class="visually-hidden">Loading...</span>
-                        </div>
-                        <p class="mt-2">Processing your document... This may take a few moments.</p>
-                    </div>
-                </div>
-                
-                <div id="optionsPanel" class="text-center mb-4" style="display: none;">
-                    <h4 class="mb-3">Conversion Options</h4>
-                    <div class="d-flex flex-wrap justify-content-center">
-                        <button class="btn btn-outline-primary option-btn" data-option="detailed">
-                            <i class="fas fa-align-left me-1"></i> Detailed Q&A
-                        </button>
-                        <button class="btn btn-outline-primary option-btn" data-option="concise">
-                            <i class="fas fa-bolt me-1"></i> Concise Q&A
-                        </button>
-                        <button class="btn btn-outline-primary option-btn" data-option="mcq">
-                            <i class="fas fa-list-ul me-1"></i> Multiple Choice
-                        </button>
-                        <button class="btn btn-outline-primary option-btn" data-option="flashcards">
-                            <i class="fas fa-layer-group me-1"></i> Flashcards
-                        </button>
-                    </div>
-                </div>
-                
-                <div id="resultContainer" class="result-container">
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                        <h3>Generated Questions & Answers</h3>
-                        <div>
-                            <button id="downloadPdf" class="btn btn-outline-danger me-2">
-                                <i class="fas fa-file-pdf me-1"></i>PDF
-                            </button>
-                            <button id="downloadWord" class="btn btn-outline-primary me-2">
-                                <i class="fas fa-file-word me-1"></i>Word
-                            </button>
-                            <button id="shareBtn" class="btn btn-outline-success">
-                                <i class="fas fa-share-alt me-1"></i>Share
-                            </button>
-                        </div>
-                    </div>
-                    
-                    <div id="qaResults">
-                        <!-- Q&A items will be inserted here -->
-                    </div>
-                    
-                    <div class="text-center mt-4">
-                        <button id="newDocumentBtn" class="btn btn-secondary">
-                            <i class="fas fa-file-import me-2"></i>Process Another Document
-                        </button>
-                    </div>
-                </div>
+            <div>
+                <div class="ad-label">Advertisement</div>
+                <!-- Replace with your Google AdSense code -->
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_PUBLISHER_ID"
+                    crossorigin="anonymous"></script>
+                <!-- Ad Unit 1 -->
+                <ins class="adsbygoogle"
+                    style="display:block"
+                    data-ad-client="ca-pub-YOUR_PUBLISHER_ID"
+                    data-ad-slot="YOUR_AD_UNIT_ID_1"
+                    data-ad-format="auto"
+                    data-full-width-responsive="true"></ins>
+                <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
             </div>
         </div>
     </div>
 
+    <!-- Main Tool Section -->
+    <section class="main-content" id="tool">
+        <div class="container">
+            <div class="tool-container">
+                <h2 class="section-title">Document to Q&A Converter</h2>
+                
+                <div class="upload-area" id="uploadArea">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <h3>Upload Your Document</h3>
+                    <p>Drag & drop your PDF or Word file here or click to browse</p>
+                    <button class="btn" id="uploadBtn">
+                        <i class="fas fa-file-upload"></i> Select File
+                    </button>
+                    <input type="file" id="fileInput" accept=".pdf,.doc,.docx,.txt">
+                    <div class="file-info" id="fileInfo">No file selected</div>
+                </div>
+                
+                <div class="options-container">
+                    <div class="option-card">
+                        <i class="fas fa-cog"></i>
+                        <h3>Conversion Options</h3>
+                        <p>Customize how your document is converted to Q&A format</p>
+                        <button class="btn btn-outline" id="optionsBtn">
+                            <i class="fas fa-sliders-h"></i> Options
+                        </button>
+                    </div>
+                    
+                    <div class="option-card">
+                        <i class="fas fa-language"></i>
+                        <h3>Language Support</h3>
+                        <p>Supports multiple languages for question generation</p>
+                        <select class="btn btn-outline" id="languageSelect" style="width: 100%; padding: 12px;">
+                            <option value="en">English</option>
+                            <option value="es">Spanish</option>
+                            <option value="fr">French</option>
+                            <option value="de">German</option>
+                            <option value="it">Italian</option>
+                        </select>
+                    </div>
+                    
+                    <div class="option-card">
+                        <i class="fas fa-graduation-cap"></i>
+                        <h3>Education Focused</h3>
+                        <p>Optimized for academic and research documents</p>
+                        <button class="btn btn-outline">
+                            <i class="fas fa-info-circle"></i> Learn More
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="loading" id="loadingIndicator">
+                    <div class="loading-spinner"></div>
+                    <p>Processing your document...</p>
+                </div>
+                
+                <div class="result-container" id="resultContainer">
+                    <h3 class="section-title">Generated Questions & Answers</h3>
+                    
+                    <div class="result-actions">
+                        <button class="btn" id="downloadPdfBtn">
+                            <i class="fas fa-file-pdf"></i> Download as PDF
+                        </button>
+                        <button class="btn btn-outline" id="downloadWordBtn">
+                            <i class="fas fa-file-word"></i> Download as Word
+                        </button>
+                        <button class="btn btn-outline" id="copyTextBtn">
+                            <i class="fas fa-copy"></i> Copy to Clipboard
+                        </button>
+                        <div class="social-share" style="margin-left: auto;">
+                            <button class="btn btn-outline" id="shareBtn">
+                                <i class="fas fa-share-alt"></i> Share
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="result-content" id="resultContent">
+                        <!-- Q&A content will be inserted here -->
+                    </div>
+                </div>
+                
+                <button class="btn" id="processBtn" style="display: none; width: 100%;">
+                    <i class="fas fa-magic"></i> Generate Q&A
+                </button>
+            </div>
+        </div>
+    </section>
+
     <!-- Ad Container 2 -->
-    <div class="container mt-4">
+    <div class="container">
         <div class="ad-container">
-            <!-- Replace with your Google AdSense code -->
-            <ins class="adsbygoogle"
-                style="display:block"
-                data-ad-client="ca-pub-YOUR_ADSENSE_ID"
-                data-ad-slot="YOUR_AD_UNIT_ID_2"
-                data-ad-format="auto"
-                data-full-width-responsive="true"></ins>
-            <script>
-                (adsbygoogle = window.adsbygoogle || []).push({});
-            </script>
+            <div>
+                <div class="ad-label">Advertisement</div>
+                <!-- Replace with your Google AdSense code -->
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_PUBLISHER_ID"
+                    crossorigin="anonymous"></script>
+                <!-- Ad Unit 2 -->
+                <ins class="adsbygoogle"
+                    style="display:block"
+                    data-ad-client="ca-pub-YOUR_PUBLISHER_ID"
+                    data-ad-slot="YOUR_AD_UNIT_ID_2"
+                    data-ad-format="auto"
+                    data-full-width-responsive="true"></ins>
+                <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
         </div>
     </div>
 
     <!-- Features Section -->
-    <section id="features" class="py-5 bg-light">
+    <section class="main-content">
         <div class="container">
-            <h2 class="text-center mb-5">Powerful Features</h2>
-            <div class="row">
-                <div class="col-md-4 mb-4">
-                    <div class="card h-100 border-0 shadow-sm">
-                        <div class="card-body text-center">
-                            <div class="feature-icon mb-3">
-                                <i class="fas fa-file-alt fa-3x text-primary"></i>
-                            </div>
-                            <h4 class="card-title">Multiple Formats</h4>
-                            <p class="card-text">Supports PDF, Word, and text documents. Convert any material into Q&A format effortlessly.</p>
-                        </div>
-                    </div>
+            <h2 class="section-title">Key Features</h2>
+            
+            <div class="options-container">
+                <div class="option-card">
+                    <i class="fas fa-file-alt"></i>
+                    <h3>Multiple Formats</h3>
+                    <p>Supports PDF, Word (.doc, .docx), and plain text files for conversion</p>
                 </div>
-                <div class="col-md-4 mb-4">
-                    <div class="card h-100 border-0 shadow-sm">
-                        <div class="card-body text-center">
-                            <div class="feature-icon mb-3">
-                                <i class="fas fa-brain fa-3x text-primary"></i>
-                            </div>
-                            <h4 class="card-title">AI-Powered Analysis</h4>
-                            <p class="card-text">Our advanced algorithms identify key concepts and generate relevant questions automatically.</p>
-                        </div>
-                    </div>
+                
+                <div class="option-card">
+                    <i class="fas fa-brain"></i>
+                    <h3>AI-Powered</h3>
+                    <p>Uses advanced NLP to understand content and generate relevant questions</p>
                 </div>
-                <div class="col-md-4 mb-4">
-                    <div class="card h-100 border-0 shadow-sm">
-                        <div class="card-body text-center">
-                            <div class="feature-icon mb-3">
-                                <i class="fas fa-download fa-3x text-primary"></i>
-                            </div>
-                            <h4 class="card-title">Export Options</h4>
-                            <p class="card-text">Download your Q&A pairs as PDF or editable Word documents for easy sharing and printing.</p>
-                        </div>
-                    </div>
+                
+                <div class="option-card">
+                    <i class="fas fa-download"></i>
+                    <h3>Easy Export</h3>
+                    <p>Download your Q&A in PDF or Word format with one click</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- How It Works Section -->
-    <section id="how-it-works" class="py-5">
+    <section class="main-content" style="background-color: #f8f9fa;">
         <div class="container">
-            <h2 class="text-center mb-5">How It Works</h2>
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="mb-4">
-                        <h4><span class="badge bg-primary me-2">1</span> Upload Your Document</h4>
-                        <p>Simply drag and drop your PDF, Word, or text file into the upload area or click to browse your files.</p>
-                    </div>
-                    <div class="mb-4">
-                        <h4><span class="badge bg-primary me-2">2</span> Choose Conversion Type</h4>
-                        <p>Select your preferred Q&A format - detailed explanations, concise answers, multiple choice, or flashcards.</p>
-                    </div>
-                    <div class="mb-4">
-                        <h4><span class="badge bg-primary me-2">3</span> Generate & Download</h4>
-                        <p>Our system processes your document and generates comprehensive Q&A pairs. Download or share your results.</p>
-                    </div>
+            <h2 class="section-title">How It Works</h2>
+            
+            <div class="options-container">
+                <div class="option-card">
+                    <div style="font-size: 2rem; font-weight: bold; color: var(--primary-color); margin-bottom: 15px;">1</div>
+                    <h3>Upload Document</h3>
+                    <p>Select your PDF or Word file by dragging and dropping or browsing your files</p>
                 </div>
-                <div class="col-lg-6">
-                    <img src="https://via.placeholder.com/600x400" alt="How Doc2QA works" class="img-fluid rounded shadow">
+                
+                <div class="option-card">
+                    <div style="font-size: 2rem; font-weight: bold; color: var(--primary-color); margin-bottom: 15px;">2</div>
+                    <h3>Process Content</h3>
+                    <p>Our AI analyzes the text and generates relevant questions with answers</p>
+                </div>
+                
+                <div class="option-card">
+                    <div style="font-size: 2rem; font-weight: bold; color: var(--primary-color); margin-bottom: 15px;">3</div>
+                    <h3>Download & Share</h3>
+                    <p>Get your Q&A in preferred format and share with others easily</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Ad Container 3 -->
-    <div class="container mt-4">
+    <div class="container">
         <div class="ad-container">
-            <!-- Replace with your Google AdSense code -->
-            <ins class="adsbygoogle"
-                style="display:block"
-                data-ad-client="ca-pub-YOUR_ADSENSE_ID"
-                data-ad-slot="YOUR_AD_UNIT_ID_3"
-                data-ad-format="auto"
-                data-full-width-responsive="true"></ins>
-            <script>
-                (adsbygoogle = window.adsbygoogle || []).push({});
-            </script>
+            <div>
+                <div class="ad-label">Advertisement</div>
+                <!-- Replace with your Google AdSense code -->
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_PUBLISHER_ID"
+                    crossorigin="anonymous"></script>
+                <!-- Ad Unit 3 -->
+                <ins class="adsbygoogle"
+                    style="display:block"
+                    data-ad-client="ca-pub-YOUR_PUBLISHER_ID"
+                    data-ad-slot="YOUR_AD_UNIT_ID_3"
+                    data-ad-format="auto"
+                    data-full-width-responsive="true"></ins>
+                <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
         </div>
     </div>
 
-    <!-- Pricing Section -->
-    <section id="pricing" class="py-5 bg-light">
-        <div class="container">
-            <h2 class="text-center mb-5">Simple, Transparent Pricing</h2>
-            <div class="row">
-                <div class="col-md-4 mb-4">
-                    <div class="card h-100">
-                        <div class="card-header bg-white text-center py-3">
-                            <h4 class="my-0">Free</h4>
-                        </div>
-                        <div class="card-body">
-                            <h2 class="card-title text-center">$0<small class="text-muted">/mo</small></h2>
-                            <ul class="list-unstyled mt-3 mb-4">
-                                <li><i class="fas fa-check text-success me-2"></i> 5 document conversions/month</li>
-                                <li><i class="fas fa-check text-success me-2"></i> Basic Q&A generation</li>
-                                <li><i class="fas fa-check text-success me-2"></i> PDF downloads</li>
-                                <li><i class="fas fa-times text-muted me-2"></i> Word exports</li>
-                                <li><i class="fas fa-times text-muted me-2"></i> Advanced formats</li>
-                            </ul>
-                        </div>
-                        <div class="card-footer bg-white border-0 text-center">
-                            <button class="btn btn-outline-primary">Get Started</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 mb-4">
-                    <div class="card h-100 border-primary">
-                        <div class="card-header bg-primary text-white text-center py-3">
-                            <h4 class="my-0">Pro</h4>
-                        </div>
-                        <div class="card-body">
-                            <h2 class="card-title text-center">$9.99<small class="text-muted">/mo</small></h2>
-                            <ul class="list-unstyled mt-3 mb-4">
-                                <li><i class="fas fa-check text-success me-2"></i> 50 document conversions/month</li>
-                                <li><i class="fas fa-check text-success me-2"></i> Advanced Q&A generation</li>
-                                <li><i class="fas fa-check text-success me-2"></i> PDF & Word downloads</li>
-                                <li><i class="fas fa-check text-success me-2"></i> Multiple choice questions</li>
-                                <li><i class="fas fa-check text-success me-2"></i> Flashcard format</li>
-                            </ul>
-                        </div>
-                        <div class="card-footer bg-white border-0 text-center">
-                            <button class="btn btn-primary">Get Pro</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 mb-4">
-                    <div class="card h-100">
-                        <div class="card-header bg-white text-center py-3">
-                            <h4 class="my-0">Enterprise</h4>
-                        </div>
-                        <div class="card-body">
-                            <h2 class="card-title text-center">$29.99<small class="text-muted">/mo</small></h2>
-                            <ul class="list-unstyled mt-3 mb-4">
-                                <li><i class="fas fa-check text-success me-2"></i> Unlimited conversions</li>
-                                <li><i class="fas fa-check text-success me-2"></i> All Q&A formats</li>
-                                <li><i class="fas fa-check text-success me-2"></i> Priority processing</li>
-                                <li><i class="fas fa-check text-success me-2"></i> Team collaboration</li>
-                                <li><i class="fas fa-check text-success me-2"></i> API access</li>
-                            </ul>
-                        </div>
-                        <div class="card-footer bg-white border-0 text-center">
-                            <button class="btn btn-outline-primary">Contact Sales</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="py-5">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6">
-                    <h2>Contact Us</h2>
-                    <p class="lead">Have questions or feedback? We'd love to hear from you!</p>
-                    <form>
-                        <div class="mb-3">
-                            <label for="name" class="form-label">Name</label>
-                            <input type="text" class="form-control" id="name" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="email" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="message" class="form-label">Message</label>
-                            <textarea class="form-control" id="message" rows="4" required></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Send Message</button>
-                    </form>
-                </div>
-                <div class="col-lg-6">
-                    <div class="bg-light p-4 rounded h-100">
-                        <h4><i class="fas fa-info-circle me-2"></i>Help & Support</h4>
-                        <p>Check out our <a href="#">FAQ section</a> for answers to common questions.</p>
-                        
-                        <h4 class="mt-4"><i class="fas fa-envelope me-2"></i>Email Us</h4>
-                        <p>support@doc2qa.com</p>
-                        
-                        <h4 class="mt-4"><i class="fas fa-clock me-2"></i>Support Hours</h4>
-                        <p>Monday - Friday: 9am - 5pm EST</p>
-                        <p>Weekends: Limited availability</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- Footer -->
-    <footer class="footer">
+    <footer>
         <div class="container">
-            <div class="row">
-                <div class="col-md-4 mb-4 mb-md-0">
-                    <h5>Doc2QA</h5>
+            <div class="footer-container">
+                <div class="footer-col">
+                    <h3>Q&A Tool</h3>
                     <p>Transforming documents into interactive learning materials since 2023.</p>
-                    <div class="social-icons">
-                        <a href="#" class="text-white me-2"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="text-white me-2"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="text-white me-2"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="#" class="text-white"><i class="fab fa-instagram"></i></a>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
                     </div>
                 </div>
-                <div class="col-md-2 mb-4 mb-md-0">
-                    <h5>Links</h5>
-                    <ul class="list-unstyled">
-                        <li><a href="#" class="text-white">Home</a></li>
-                        <li><a href="#features" class="text-white">Features</a></li>
-                        <li><a href="#pricing" class="text-white">Pricing</a></li>
-                        <li><a href="#contact" class="text-white">Contact</a></li>
+                
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Features</a></li>
+                        <li><a href="#">Pricing</a></li>
+                        <li><a href="#">Contact</a></li>
                     </ul>
                 </div>
-                <div class="col-md-2 mb-4 mb-md-0">
-                    <h5>Legal</h5>
-                    <ul class="list-unstyled">
-                        <li><a href="#" class="text-white">Privacy Policy</a></li>
-                        <li><a href="#" class="text-white">Terms of Service</a></li>
-                        <li><a href="#" class="text-white">Cookie Policy</a></li>
+                
+                <div class="footer-col">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Documentation</a></li>
+                        <li><a href="#">API</a></li>
+                        <li><a href="#">Community</a></li>
+                        <li><a href="#">Blog</a></li>
                     </ul>
                 </div>
-                <div class="col-md-4">
-                    <h5>Subscribe to Our Newsletter</h5>
-                    <p>Get updates on new features and tips for using Doc2QA.</p>
-                    <form class="mt-3">
-                        <div class="input-group">
-                            <input type="email" class="form-control" placeholder="Your email">
-                            <button class="btn btn-primary" type="submit">Subscribe</button>
-                        </div>
-                    </form>
+                
+                <div class="footer-col">
+                    <h3>Legal</h3>
+                    <ul>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Cookie Policy</a></li>
+                        <li><a href="#">GDPR</a></li>
+                    </ul>
                 </div>
             </div>
-            <hr class="mt-4 mb-4" style="border-color: rgba(255,255,255,0.1);">
-            <div class="text-center">
-                <p class="mb-0">&copy; 2023 Doc2QA. All rights reserved.</p>
+            
+            <div class="copyright">
+                <p>&copy; 2023 Q&A Tool. All rights reserved.</p>
             </div>
         </div>
     </footer>
 
-    <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.4.0/mammoth.browser.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script>
-        // Initialize PDF.js worker
-        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.worker.min.js';
-        
-        // DOM elements
-        const dropzone = document.getElementById('dropzone');
+        // Mobile Menu Toggle
+        document.getElementById('mobileMenuBtn').addEventListener('click', function() {
+            document.getElementById('mainNav').classList.toggle('active');
+        });
+
+        // File Upload Handling
+        const uploadArea = document.getElementById('uploadArea');
         const fileInput = document.getElementById('fileInput');
-        const convertBtn = document.getElementById('convertBtn');
-        const loadingSpinner = document.getElementById('loadingSpinner');
-        const optionsPanel = document.getElementById('optionsPanel');
-        const resultContainer = document.getElementById('resultContainer');
-        const qaResults = document.getElementById('qaResults');
-        const downloadPdf = document.getElementById('downloadPdf');
-        const downloadWord = document.getElementById('downloadWord');
-        const shareBtn = document.getElementById('shareBtn');
-        const newDocumentBtn = document.getElementById('newDocumentBtn');
-        const optionBtns = document.querySelectorAll('.option-btn');
+        const fileInfo = document.getElementById('fileInfo');
+        const processBtn = document.getElementById('processBtn');
+        const uploadBtn = document.getElementById('uploadBtn');
         
-        // Variables
-        let uploadedFile = null;
-        let extractedText = '';
-        let qaPairs = [];
-        let conversionType = 'detailed';
-        
-        // Event listeners
-        dropzone.addEventListener('dragover', (e) => {
-            e.preventDefault();
-            dropzone.classList.add('dragover');
+        // Click on upload area or button to trigger file input
+        uploadArea.addEventListener('click', function() {
+            fileInput.click();
         });
         
-        dropzone.addEventListener('dragleave', () => {
-            dropzone.classList.remove('dragover');
+        uploadBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            fileInput.click();
         });
         
-        dropzone.addEventListener('drop', (e) => {
-            e.preventDefault();
-            dropzone.classList.remove('dragover');
-            
-            if (e.dataTransfer.files.length) {
-                handleFileUpload(e.dataTransfer.files[0]);
-            }
-        });
-        
-        fileInput.addEventListener('change', () => {
-            if (fileInput.files.length) {
-                handleFileUpload(fileInput.files[0]);
-            }
-        });
-        
-        convertBtn.addEventListener('click', processDocument);
-        
-        optionBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                conversionType = btn.dataset.option;
-                optionBtns.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                generateQAPairs();
-            });
-        });
-        
-        downloadPdf.addEventListener('click', downloadAsPdf);
-        downloadWord.addEventListener('click', downloadAsWord);
-        shareBtn.addEventListener('click', shareResults);
-        newDocumentBtn.addEventListener('click', resetTool);
-        
-        // Functions
-        function handleFileUpload(file) {
-            const validTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'text/plain'];
-            
-            if (!validTypes.includes(file.type) {
-                alert('Please upload a valid PDF, Word, or text file.');
-                return;
-            }
-            
-            uploadedFile = file;
-            convertBtn.disabled = false;
-            
-            // Update UI to show file is ready
-            dropzone.innerHTML = `
-                <i class="fas fa-file-alt fa-3x mb-3" style="color: var(--accent-color);"></i>
-                <p>${file.name}</p>
-                <p class="text-success"><i class="fas fa-check-circle me-2"></i>Ready for conversion</p>
-            `;
-        }
-        
-        async function processDocument() {
-            if (!uploadedFile) return;
-            
-            loadingSpinner.style.display = 'block';
-            convertBtn.disabled = true;
-            
-            try {
-                // Extract text based on file type
-                if (uploadedFile.type === 'application/pdf') {
-                    extractedText = await extractTextFromPdf(uploadedFile);
-                } else if (uploadedFile.type.includes('word')) {
-                    extractedText = await extractTextFromWord(uploadedFile);
-                } else if (uploadedFile.type === 'text/plain') {
-                    extractedText = await readTextFile(uploadedFile);
+        // Handle file selection
+        fileInput.addEventListener('change', function() {
+            if (this.files && this.files[0]) {
+                const fileName = this.files[0].name;
+                const fileSize = (this.files[0].size / (1024 * 1024)).toFixed(2); // in MB
+                const fileType = this.files[0].type;
+                
+                // Validate file type
+                const validTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'text/plain'];
+                
+                if (!validTypes.includes(fileType) {
+                    fileInfo.textContent = 'Invalid file type. Please upload PDF or Word document.';
+                    fileInfo.style.color = 'var(--danger-color)';
+                    processBtn.style.display = 'none';
+                    return;
                 }
                 
-                // Show options panel
-                loadingSpinner.style.display = 'none';
-                optionsPanel.style.display = 'block';
-                
-                // For demo purposes, we'll generate some sample Q&A pairs
-                // In a real app, you would send the text to your backend for processing
-                generateSampleQAPairs();
-                
-            } catch (error) {
-                console.error('Error processing document:', error);
-                loadingSpinner.style.display = 'none';
-                alert('An error occurred while processing your document. Please try again.');
-                convertBtn.disabled = false;
+                fileInfo.textContent = `${fileName} (${fileSize} MB)`;
+                fileInfo.style.color = 'var(--success-color)';
+                processBtn.style.display = 'block';
             }
+        });
+        
+        // Drag and drop functionality
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            uploadArea.addEventListener(eventName, preventDefaults, false);
+        });
+        
+        function preventDefaults(e) {
+            e.preventDefault();
+            e.stopPropagation();
         }
         
-        async function extractTextFromPdf(file) {
-            return new Promise((resolve, reject) => {
-                const fileReader = new FileReader();
-                
-                fileReader.onload = async function() {
-                    try {
-                        const typedArray = new Uint8Array(this.result);
-                        const pdf = await pdfjsLib.getDocument(typedArray).promise;
-                        let fullText = '';
-                        
-                        for (let i = 1; i <= pdf.numPages; i++) {
-                            const page = await pdf.getPage(i);
-                            const textContent = await page.getTextContent();
-                            const text = textContent.items.map(item => item.str).join(' ');
-                            fullText += text + '\n';
-                        }
-                        
-                        resolve(fullText);
-                    } catch (error) {
-                        reject(error);
-                    }
-                };
-                
-                fileReader.onerror = reject;
-                fileReader.readAsArrayBuffer(file);
-            });
+        ['dragenter', 'dragover'].forEach(eventName => {
+            uploadArea.addEventListener(eventName, highlight, false);
+        });
+        
+        ['dragleave', 'drop'].forEach(eventName => {
+            uploadArea.addEventListener(eventName, unhighlight, false);
+        });
+        
+        function highlight() {
+            uploadArea.style.borderColor = 'var(--primary-color)';
+            uploadArea.style.backgroundColor = 'rgba(67, 97, 238, 0.1)';
         }
         
-        async function extractTextFromWord(file) {
-            return new Promise((resolve, reject) => {
-                const fileReader = new FileReader();
-                
-                fileReader.onload = function() {
-                    const arrayBuffer = this.result;
-                    
-                    mammoth.extractRawText({arrayBuffer: arrayBuffer})
-                        .then(result => resolve(result.value))
-                        .catch(error => reject(error));
-                };
-                
-                fileReader.onerror = reject;
-                fileReader.readAsArrayBuffer(file);
-            });
+        function unhighlight() {
+            uploadArea.style.borderColor = '#ccc';
+            uploadArea.style.backgroundColor = '';
         }
         
-        function readTextFile(file) {
-            return new Promise((resolve, reject) => {
-                const fileReader = new FileReader();
-                
-                fileReader.onload = function() {
-                    resolve(this.result);
-                };
-                
-                fileReader.onerror = reject;
-                fileReader.readAsText(file);
-            });
-        }
+        uploadArea.addEventListener('drop', handleDrop, false);
         
-        function generateSampleQAPairs() {
-            // This is a simplified version for demo purposes
-            // In a real app, you would use NLP or send to a backend service
+        function handleDrop(e) {
+            const dt = e.dataTransfer;
+            const files = dt.files;
+            fileInput.files = files;
             
-            qaPairs = [
+            // Trigger change event manually
+            const event = new Event('change');
+            fileInput.dispatchEvent(event);
+        }
+        
+        // Process Button Click
+        processBtn.addEventListener('click', function() {
+            const loadingIndicator = document.getElementById('loadingIndicator');
+            const resultContainer = document.getElementById('resultContainer');
+            
+            // Show loading indicator
+            loadingIndicator.style.display = 'block';
+            processBtn.style.display = 'none';
+            
+            // Simulate processing delay (in a real app, this would be an API call)
+            setTimeout(function() {
+                loadingIndicator.style.display = 'none';
+                resultContainer.style.display = 'block';
+                
+                // Generate sample Q&A (in a real app, this would come from your backend)
+                generateSampleQa();
+                
+                // Scroll to results
+                resultContainer.scrollIntoView({ behavior: 'smooth' });
+            }, 3000);
+        });
+        
+        // Generate sample Q&A content
+        function generateSampleQa() {
+            const resultContent = document.getElementById('resultContent');
+            
+            // Sample Q&A data
+            const sampleQa = [
                 {
                     question: "What is the main purpose of this document?",
-                    answer: "The document appears to be about converting various file formats into question-answer pairs for educational or study purposes."
+                    answer: "The document appears to be explaining how to convert documents into question and answer format using an automated tool. It demonstrates the functionality of extracting key information and presenting it in a Q&A structure."
                 },
                 {
-                    question: "What file formats are supported by this tool?",
-                    answer: "The tool supports PDF, Word (DOC/DOCX), and plain text files."
+                    question: "What file formats does this tool support?",
+                    answer: "The tool supports PDF, Word documents (.doc and .docx), and plain text files for conversion into Q&A format."
                 },
                 {
-                    question: "How does the conversion process work?",
-                    answer: "The tool extracts text from the uploaded document, analyzes the content, and generates relevant questions and answers based on the key concepts found in the text."
+                    question: "How does the tool generate questions?",
+                    answer: "The tool uses natural language processing (NLP) techniques to analyze the document content, identify key concepts and information, and formulate relevant questions that can be answered from the text."
                 },
                 {
-                    question: "What output formats are available?",
-                    answer: "You can download the generated Q&A pairs as PDF or editable Word documents, and share them through various platforms."
+                    question: "Can the generated Q&A be exported?",
+                    answer: "Yes, the generated questions and answers can be downloaded in either PDF or Word format, and can also be shared directly from the platform."
+                },
+                {
+                    question: "Is there a limit to the document size?",
+                    answer: "While the demo handles sample documents of any size, in a production environment there might be reasonable limits based on server capacity and processing requirements."
                 }
             ];
             
-            generateQAPairs();
-        }
-        
-        function generateQAPairs() {
-            // Clear previous results
-            qaResults.innerHTML = '';
+            // Clear previous content
+            resultContent.innerHTML = '';
             
-            // Generate Q&A items based on the selected format
-            qaPairs.forEach((pair, index) => {
+            // Add each Q&A item
+            sampleQa.forEach(item => {
                 const qaItem = document.createElement('div');
                 qaItem.className = 'qa-item';
-                
-                if (conversionType === 'detailed') {
-                    qaItem.innerHTML = `
-                        <h5>Question ${index + 1}: ${pair.question}</h5>
-                        <div class="answer p-3 bg-light rounded mt-2">
-                            <strong>Answer:</strong> ${pair.answer}
-                        </div>
-                    `;
-                } else if (conversionType === 'concise') {
-                    qaItem.innerHTML = `
-                        <div class="d-flex justify-content-between">
-                            <strong>Q:</strong> ${pair.question}
-                            <strong>A:</strong> ${pair.answer}
-                        </div>
-                    `;
-                } else if (conversionType === 'mcq') {
-                    // Generate some dummy options for demo
-                    const options = ['Option A', 'Option B', 'Option C', 'Option D'];
-                    const correctIndex = Math.floor(Math.random() * options.length);
-                    options[correctIndex] = pair.answer;
-                    
-                    qaItem.innerHTML = `
-                        <h5>Question ${index + 1}: ${pair.question}</h5>
-                        <div class="options mt-2">
-                            ${options.map((opt, i) => `
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="q${index}" id="q${index}o${i}">
-                                    <label class="form-check-label" for="q${index}o${i}">
-                                        ${opt}
-                                    </label>
-                                </div>
-                            `).join('')}
-                        </div>
-                    `;
-                } else if (conversionType === 'flashcards') {
-                    qaItem.innerHTML = `
-                        <div class="flashcard">
-                            <div class="flashcard-front p-3 bg-primary text-white rounded">
-                                <strong>Question:</strong> ${pair.question}
-                            </div>
-                            <div class="flashcard-back p-3 bg-light rounded mt-2">
-                                <strong>Answer:</strong> ${pair.answer}
-                            </div>
-                        </div>
-                    `;
-                }
-                
-                qaResults.appendChild(qaItem);
+                qaItem.innerHTML = `
+                    <div class="qa-question">${item.question}</div>
+                    <div class="qa-answer">${item.answer}</div>
+                `;
+                resultContent.appendChild(qaItem);
             });
-            
-            // Show results
-            optionsPanel.style.display = 'none';
-            resultContainer.style.display = 'block';
         }
         
-        function downloadAsPdf() {
-            // In a real app, you would use jsPDF to generate a proper PDF
-            alert('In a complete implementation, this would generate and download a PDF file with all Q&A pairs.');
-            
-            // Example of how you might implement this with jsPDF:
-            /*
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
-            
-            doc.text('Generated Q&A Pairs', 10, 10);
-            
-            qaPairs.forEach((pair, index) => {
-                const y = 20 + (index * 40);
-                doc.text(`Question ${index + 1}: ${pair.question}`, 10, y);
-                doc.text(`Answer: ${pair.answer}`, 10, y + 10);
+        // Download buttons functionality
+        document.getElementById('downloadPdfBtn').addEventListener('click', function() {
+            alert('In a real implementation, this would download the Q&A as a PDF file. This is a demo.');
+        });
+        
+        document.getElementById('downloadWordBtn').addEventListener('click', function() {
+            alert('In a real implementation, this would download the Q&A as a Word document. This is a demo.');
+        });
+        
+        document.getElementById('copyTextBtn').addEventListener('click', function() {
+            const resultText = document.getElementById('resultContent').innerText;
+            navigator.clipboard.writeText(resultText).then(() => {
+                alert('Q&A content copied to clipboard!');
             });
-            
-            doc.save('Q&A_Pairs.pdf');
-            */
-        }
+        });
         
-        function downloadAsWord() {
-            // In a real app, you would generate a proper Word document
-            alert('In a complete implementation, this would generate and download a Word document with all Q&A pairs.');
-        }
-        
-        function shareResults() {
+        document.getElementById('shareBtn').addEventListener('click', function() {
             if (navigator.share) {
                 navigator.share({
-                    title: 'Generated Q&A Pairs',
+                    title: 'Generated Q&A from Document',
                     text: 'Check out these questions and answers generated from my document:',
                     url: window.location.href
                 }).catch(err => {
                     console.log('Error sharing:', err);
-                    showShareOptions();
                 });
             } else {
-                showShareOptions();
+                alert('Web Share API not supported in your browser. You can manually copy the link.');
             }
-        }
+        });
         
-        function showShareOptions() {
-            alert('In a complete implementation, this would show various sharing options including email, social media, etc.');
-        }
+        // For demo purposes - in a real app, you would integrate with:
+        // 1. A backend API for document processing
+        // 2. A PDF/Word generation library
+        // 3. Actual Google AdSense codes
         
-        function resetTool() {
-            uploadedFile = null;
-            extractedText = '';
-            qaPairs = [];
-            
-            fileInput.value = '';
-            convertBtn.disabled = true;
-            resultContainer.style.display = 'none';
-            optionsPanel.style.display = 'none';
-            
-            dropzone.innerHTML = `
-                <i class="fas fa-cloud-upload-alt fa-3x mb-3" style="color: var(--accent-color);"></i>
-                <p>Drag & drop your PDF or Word document here</p>
-                <p class="text-muted">or</p>
-                <button class="btn btn-primary file-upload-btn">
-                    <i class="fas fa-folder-open me-2"></i>Browse Files
-                    <input type="file" id="fileInput" class="file-upload-input" accept=".pdf,.doc,.docx,.txt">
-                </button>
-            `;
-            
-            // Reattach event listeners to the new file input
-            document.querySelector('.file-upload-input').addEventListener('change', () => {
-                if (fileInput.files.length) {
-                    handleFileUpload(fileInput.files[0]);
-                }
-            });
-        }
+        // SEO enhancement - track page views
+        window.addEventListener('load', function() {
+            // In a real app, you would send this to your analytics platform
+            console.log('Page loaded - tracking view');
+        });
     </script>
 </body>
 </html>
