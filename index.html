@@ -3,630 +3,870 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Instantly convert textbooks, documents, and PDFs into interactive question-answer formats. Perfect for students, teachers, and researchers.">
-    <title>Text2QA | Transform Documents into Q&A Pairs</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>CompressHub | All-in-One File Compression</title>
+    <meta name="description" content="Compress images, documents, audio, and video files with our powerful online tool. Reduce file sizes while maintaining quality.">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         :root {
             --primary: #4361ee;
             --secondary: #3f37c9;
-            --accent: #4cc9f0;
+            --accent: #4895ef;
             --light: #f8f9fa;
             --dark: #212529;
-            --success: #4bb543;
+            --success: #4cc9f0;
+            --gray: #6c757d;
+            --light-gray: #e9ecef;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s ease;
         }
-        
+
         body {
             font-family: 'Poppins', sans-serif;
-            line-height: 1.7;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
             color: var(--dark);
-            background-color: #f9fbfd;
+            line-height: 1.6;
+            min-height: 100vh;
             overflow-x: hidden;
         }
-        
-        .navbar {
-            padding: 15px 0;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            background: white;
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
         }
-        
-        .navbar-brand {
-            font-weight: 700;
-            color: var(--primary);
-            font-size: 1.8rem;
-        }
-        
-        .navbar-brand span {
-            color: var(--secondary);
-        }
-        
-        .hero-section {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
             color: white;
+            padding: 1.2rem 0;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo i {
+            font-size: 2rem;
+        }
+
+        .logo h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .logo span {
+            color: #4cc9f0;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 1.8rem;
+        }
+
+        nav a {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 0.5rem 0.8rem;
+            border-radius: 30px;
+            font-size: 1.05rem;
+        }
+
+        nav a:hover, nav a.active {
+            color: white;
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .nav-btn {
+            background: white;
+            color: var(--primary);
+            border: none;
+            padding: 0.6rem 1.5rem;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 1rem;
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Hero Section */
+        .hero {
             padding: 5rem 0 3rem;
             position: relative;
             overflow: hidden;
         }
-        
-        .hero-section::before {
-            content: '';
-            position: absolute;
-            top: -50px;
-            right: -50px;
-            width: 300px;
-            height: 300px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 50%;
+
+        .hero-content {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
         }
-        
-        .hero-section::after {
-            content: '';
-            position: absolute;
-            bottom: -100px;
-            left: -100px;
-            width: 400px;
-            height: 400px;
-            background: rgba(255,255,255,0.05);
-            border-radius: 50%;
+
+        .hero-text {
+            flex: 1;
+            z-index: 2;
         }
-        
-        .hero-title {
-            font-weight: 700;
-            font-size: 2.8rem;
-            margin-bottom: 1.5rem;
+
+        .hero h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 3.2rem;
             line-height: 1.2;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
         }
-        
-        .hero-subtitle {
-            font-weight: 300;
-            font-size: 1.3rem;
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--gray);
             margin-bottom: 2rem;
+            max-width: 600px;
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            padding: 0.9rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 1.1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            border: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            box-shadow: 0 5px 15px rgba(67, 97, 238, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(67, 97, 238, 0.4);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .hero-img {
+            flex: 1;
+            position: relative;
+            z-index: 1;
+        }
+
+        .file-cards {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .file-card {
+            background: white;
+            border-radius: 16px;
+            padding: 1.8rem 1.2rem;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .file-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .file-card i {
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .file-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .file-card p {
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+
+        /* Supported Files Section */
+        .section {
+            padding: 5rem 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3.5rem;
+        }
+
+        .section-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .supported-files {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .file-type {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem 1rem;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .file-type:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .file-type i {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .file-type h3 {
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .file-type p {
+            font-size: 0.85rem;
+            color: var(--gray);
+        }
+
+        /* Upload Methods */
+        .upload-methods {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .method-card {
+            background: white;
+            border-radius: 16px;
+            padding: 2.5rem 2rem;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .method-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .method-card i {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+        }
+
+        .method-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .method-card p {
+            color: var(--gray);
+            margin-bottom: 1.5rem;
+        }
+
+        /* Features Section */
+        .features {
+            background: linear-gradient(to bottom, #ffffff, #f0f4ff);
+            border-radius: 30px;
+            padding: 4rem 2rem;
+            margin: 3rem 0;
+            box-shadow: var(--shadow);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .feature-card {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .feature-icon {
+            flex-shrink: 0;
+            width: 70px;
+            height: 70px;
+            border-radius: 18px;
+            background: rgba(67, 97, 238, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .feature-icon i {
+            font-size: 1.8rem;
+            color: var(--primary);
+        }
+
+        .feature-text h3 {
+            font-size: 1.4rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .feature-text p {
+            color: var(--gray);
+        }
+
+        /* Testimonials */
+        .testimonials {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .testimonial-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            position: relative;
+        }
+
+        .testimonial-card::before {
+            content: """;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 5rem;
+            font-family: Georgia, serif;
+            color: rgba(67, 97, 238, 0.1);
+            line-height: 1;
+        }
+
+        .testimonial-content {
+            margin-top: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--gray);
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--light-gray);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        .author-info h4 {
+            font-size: 1.1rem;
+        }
+
+        .author-info p {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            border-radius: 25px;
+            padding: 4rem 2rem;
+            text-align: center;
+            margin: 5rem 0;
+            box-shadow: var(--shadow);
+            color: white;
+        }
+
+        .cta-section h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-section p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 2.5rem;
             opacity: 0.9;
         }
-        
-        .upload-container {
-            background: white;
-            border-radius: 15px;
-            padding: 2.5rem;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-            margin-top: -50px;
-            position: relative;
-            z-index: 10;
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 4rem 0 2rem;
+            margin-top: 4rem;
         }
-        
-        .section-title {
-            font-weight: 600;
-            color: var(--primary);
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-section h3 {
             margin-bottom: 1.5rem;
+            font-size: 1.4rem;
             position: relative;
-            display: inline-block;
+            padding-bottom: 0.8rem;
         }
-        
-        .section-title::after {
+
+        .footer-section h3::after {
             content: '';
             position: absolute;
-            bottom: -8px;
+            bottom: 0;
             left: 0;
             width: 50px;
             height: 3px;
             background: var(--accent);
-            border-radius: 3px;
         }
-        
-        .upload-method {
-            background: white;
-            border-radius: 10px;
-            padding: 1.5rem;
-            text-align: center;
-            transition: all 0.3s ease;
-            border: 1px solid #e9ecef;
-            height: 100%;
+
+        .footer-links {
+            list-style: none;
         }
-        
-        .upload-method:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
-            border-color: var(--accent);
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
         }
-        
-        .upload-icon {
-            font-size: 2.5rem;
-            color: var(--primary);
-            margin-bottom: 1rem;
-        }
-        
-        .dropzone {
-            border: 2px dashed #ced4da;
-            border-radius: 10px;
-            padding: 3rem 2rem;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s;
-            background: #f8f9fa;
-            margin-bottom: 1.5rem;
-        }
-        
-        .dropzone:hover, .dropzone.dragover {
-            border-color: var(--accent);
-            background: rgba(76, 201, 240, 0.05);
-        }
-        
-        .file-upload-btn {
-            position: relative;
-            overflow: hidden;
+
+        .footer-links a {
+            color: #adb5bd;
+            text-decoration: none;
+            transition: var(--transition);
             display: inline-block;
         }
-        
-        .file-upload-input {
-            position: absolute;
-            left: 0;
-            top: 0;
-            opacity: 0;
-            width: 100%;
-            height: 100%;
-            cursor: pointer;
-        }
-        
-        .feature-card {
-            background: white;
-            border-radius: 10px;
-            padding: 2rem;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            transition: all 0.3s;
-            height: 100%;
-            border: 1px solid #e9ecef;
-        }
-        
-        .feature-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            border-color: var(--accent);
-        }
-        
-        .feature-icon {
-            font-size: 2rem;
-            color: var(--primary);
-            margin-bottom: 1.5rem;
-        }
-        
-        .btn-primary {
-            background-color: var(--primary);
-            border-color: var(--primary);
-            padding: 0.6rem 1.5rem;
-            font-weight: 500;
-        }
-        
-        .btn-primary:hover {
-            background-color: var(--secondary);
-            border-color: var(--secondary);
-        }
-        
-        .btn-outline-primary {
-            color: var(--primary);
-            border-color: var(--primary);
-        }
-        
-        .btn-outline-primary:hover {
-            background-color: var(--primary);
-            border-color: var(--primary);
-        }
-        
-        .how-it-works-step {
-            position: relative;
-            padding-left: 80px;
-            margin-bottom: 2rem;
-        }
-        
-        .step-number {
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 60px;
-            height: 60px;
-            background: var(--primary);
+
+        .footer-links a:hover {
             color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            font-weight: 600;
+            transform: translateX(5px);
         }
-        
-        .testimonial-card {
-            background: white;
-            border-radius: 10px;
-            padding: 1.5rem;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            margin: 0.5rem;
+
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid #343a40;
+            color: #6c757d;
+            font-size: 0.95rem;
         }
-        
-        .testimonial-avatar {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid var(--accent);
-        }
-        
-        .cta-section {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            padding: 4rem 0;
-            border-radius: 15px;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .cta-section::before {
-            content: '';
-            position: absolute;
-            top: -50px;
-            right: -50px;
-            width: 200px;
-            height: 200px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 50%;
-        }
-        
-        .footer {
-            background: var(--dark);
-            color: white;
-            padding: 3rem 0 1rem;
-        }
-        
-        .social-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.1);
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 0.5rem;
-            transition: all 0.3s;
-        }
-        
-        .social-icon:hover {
-            background: var(--primary);
-            transform: translateY(-3px);
-        }
-        
-        /* Animation */
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-            100% { transform: translateY(0px); }
-        }
-        
-        .floating {
-            animation: float 6s ease-in-out infinite;
-        }
-        
-        /* Responsive adjustments */
+
+        /* Responsive styles */
         @media (max-width: 992px) {
-            .hero-title {
-                font-size: 2.2rem;
+            .hero-content {
+                flex-direction: column;
             }
             
-            .hero-subtitle {
-                font-size: 1.1rem;
+            .hero-text {
+                text-align: center;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .file-cards {
+                grid-template-columns: repeat(2, 1fr);
             }
         }
-        
+
         @media (max-width: 768px) {
-            .hero-section {
-                padding: 3rem 0 2rem;
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
             }
             
-            .hero-title {
-                font-size: 1.8rem;
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
             }
             
-            .upload-container {
-                padding: 1.5rem;
+            .hero h2 {
+                font-size: 2.5rem;
             }
             
-            .how-it-works-step {
-                padding-left: 60px;
+            .file-cards {
+                grid-template-columns: 1fr;
             }
             
-            .step-number {
-                width: 50px;
-                height: 50px;
-                font-size: 1.2rem;
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero-btns {
+                flex-direction: column;
+            }
+            
+            .nav-btn {
+                display: none;
+            }
+            
+            .hero h2 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .btn {
+                width: 100%;
+                justify-content: center;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-light sticky-top">
-        <div class="container">
-            <a class="navbar-brand" href="#">
-                <i class="fas fa-question-circle me-2"></i>Text2<span>QA</span>
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#features">Features</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#how-it-works">How It Works</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#testimonials">Testimonials</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#pricing">Pricing</a>
-                    </li>
-                    <li class="nav-item ms-lg-2 mt-2 mt-lg-0">
-                        <a class="btn btn-primary" href="#">Get Started</a>
-                    </li>
-                </ul>
+    <!-- Header Section -->
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <i class="fas fa-compress-alt"></i>
+                <h1>Compress<span>Hub</span></h1>
             </div>
+            <nav>
+                <ul>
+                    <li><a href="#" class="active">Home</a></li>
+                    <li><a href="#">Tools</a></li>
+                    <li><a href="#">Pricing</a></li>
+                    <li><a href="#">How It Works</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </nav>
+            <button class="nav-btn">Get Started</button>
         </div>
-    </nav>
+    </header>
 
     <!-- Hero Section -->
-    <section class="hero-section">
+    <section class="hero">
         <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-6">
-                    <h1 class="hero-title">Transform Documents into Interactive Q&A Pairs</h1>
-                    <p class="hero-subtitle">Upload your textbooks, notes, or research papers and instantly generate comprehensive question-answer formats for better learning and retention.</p>
-                    <div class="d-flex flex-wrap gap-2">
-                        <a href="#upload" class="btn btn-light btn-lg">
-                            <i class="fas fa-file-upload me-2"></i>Try It Now
-                        </a>
-                        <a href="#how-it-works" class="btn btn-outline-light btn-lg">
-                            <i class="fas fa-play-circle me-2"></i>See How It Works
-                        </a>
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h2>Compress Any File Type in Seconds</h2>
+                    <p>Reduce file sizes without sacrificing quality. Our powerful compression tools handle images, documents, audio, and video files with ease.</p>
+                    <div class="hero-btns">
+                        <button class="btn btn-primary">
+                            <i class="fas fa-bolt"></i> Compress Now
+                        </button>
+                        <button class="btn btn-secondary">
+                            <i class="fas fa-play-circle"></i> How It Works
+                        </button>
                     </div>
                 </div>
-                <div class="col-lg-6 d-none d-lg-block">
-                    <img src="https://via.placeholder.com/600x500" alt="Document to Q&A Conversion" class="img-fluid floating">
+                <div class="hero-img">
+                    <div class="file-cards">
+                        <div class="file-card">
+                            <i class="fas fa-file-image" style="color: #ff6b6b;"></i>
+                            <h3>Image Files</h3>
+                            <p>JPG, PNG, GIF, WebP</p>
+                        </div>
+                        <div class="file-card">
+                            <i class="fas fa-file-alt" style="color: #4cc9f0;"></i>
+                            <h3>Documents</h3>
+                            <p>PDF, DOCX, PPTX, XLSX</p>
+                        </div>
+                        <div class="file-card">
+                            <i class="fas fa-file-audio" style="color: #7209b7;"></i>
+                            <h3>Audio Files</h3>
+                            <p>MP3, WAV, FLAC, AAC</p>
+                        </div>
+                        <div class="file-card">
+                            <i class="fas fa-file-video" style="color: #f72585;"></i>
+                            <h3>Video Files</h3>
+                            <p>MP4, MOV, AVI, MKV</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Upload Section -->
-    <section id="upload" class="pb-5">
+    <!-- Supported Files Section -->
+    <section class="section">
         <div class="container">
-            <div class="upload-container">
-                <h2 class="section-title text-center mb-4">Upload Your Document</h2>
-                <p class="text-center mb-5">Choose from multiple ways to upload your PDF, Word, or text documents</p>
-                
-                <div class="row g-4 mb-4">
-                    <div class="col-md-4">
-                        <div class="upload-method">
-                            <div class="upload-icon">
-                                <i class="fas fa-cloud-upload-alt"></i>
-                            </div>
-                            <h4>Drag & Drop</h4>
-                            <p class="text-muted">Simply drag your file anywhere on this page</p>
-                            <div id="dropzone" class="dropzone mt-3">
-                                <i class="fas fa-file-alt fa-2x mb-2"></i>
-                                <p class="mb-0">Drop file here</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="upload-method">
-                            <div class="upload-icon">
-                                <i class="fas fa-folder-open"></i>
-                            </div>
-                            <h4>Browse Files</h4>
-                            <p class="text-muted">Select from your computer or device</p>
-                            <button class="btn btn-outline-primary mt-3 file-upload-btn">
-                                Choose File
-                                <input type="file" id="fileInput" class="file-upload-input" accept=".pdf,.doc,.docx,.txt">
-                            </button>
-                            <div id="fileName" class="mt-2 small text-muted"></div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="upload-method">
-                            <div class="upload-icon">
-                                <i class="fas fa-link"></i>
-                            </div>
-                            <h4>From URL</h4>
-                            <p class="text-muted">Paste a link to your document online</p>
-                            <div class="input-group mt-3">
-                                <input type="text" class="form-control" placeholder="Paste document URL">
-                                <button class="btn btn-primary" type="button">Fetch</button>
-                            </div>
-                        </div>
-                    </div>
+            <div class="section-header">
+                <h2 class="section-title">Supported File Formats</h2>
+                <p class="section-subtitle">We support compression for all popular file types across different categories</p>
+            </div>
+            
+            <div class="supported-files">
+                <div class="file-type">
+                    <i class="fas fa-file-image"></i>
+                    <h3>Images</h3>
+                    <p>JPG, PNG, GIF, BMP, SVG, WebP</p>
                 </div>
-                
-                <div class="text-center">
-                    <button id="convertBtn" class="btn btn-primary btn-lg px-4" disabled>
-                        <i class="fas fa-magic me-2"></i>Generate Q&A
-                    </button>
+                <div class="file-type">
+                    <i class="fas fa-file-pdf"></i>
+                    <h3>PDF Files</h3>
+                    <p>All PDF documents</p>
+                </div>
+                <div class="file-type">
+                    <i class="fas fa-file-word"></i>
+                    <h3>Word Docs</h3>
+                    <p>DOC, DOCX, RTF</p>
+                </div>
+                <div class="file-type">
+                    <i class="fas fa-file-excel"></i>
+                    <h3>Excel Files</h3>
+                    <p>XLS, XLSX, CSV</p>
+                </div>
+                <div class="file-type">
+                    <i class="fas fa-file-powerpoint"></i>
+                    <h3>Presentations</h3>
+                    <p>PPT, PPTX, ODP</p>
+                </div>
+                <div class="file-type">
+                    <i class="fas fa-file-audio"></i>
+                    <h3>Audio Files</h3>
+                    <p>MP3, WAV, FLAC, AAC</p>
+                </div>
+                <div class="file-type">
+                    <i class="fas fa-file-video"></i>
+                    <h3>Video Files</h3>
+                    <p>MP4, MOV, AVI, MKV, WMV</p>
+                </div>
+                <div class="file-type">
+                    <i class="fas fa-file-archive"></i>
+                    <h3>Archives</h3>
+                    <p>ZIP, RAR, 7Z, TAR</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Upload Methods Section -->
+    <section class="section" style="background-color: #f8fbff;">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Multiple Upload Options</h2>
+                <p class="section-subtitle">Upload your files in whatever way works best for you</p>
+            </div>
+            
+            <div class="upload-methods">
+                <div class="method-card">
+                    <i class="fas fa-upload"></i>
+                    <h3>From Your Device</h3>
+                    <p>Simply drag & drop or browse files directly from your computer or mobile device</p>
+                    <button class="btn btn-secondary">Upload Files</button>
+                </div>
+                <div class="method-card">
+                    <i class="fas fa-link"></i>
+                    <h3>From URL</h3>
+                    <p>Paste a link to any file hosted online for instant compression</p>
+                    <button class="btn btn-secondary">Paste URL</button>
+                </div>
+                <div class="method-card">
+                    <i class="fab fa-google-drive"></i>
+                    <h3>Google Drive</h3>
+                    <p>Connect to your Google Drive account and compress files directly</p>
+                    <button class="btn btn-secondary">Connect Drive</button>
+                </div>
+                <div class="method-card">
+                    <i class="fas fa-cloud"></i>
+                    <h3>Cloud Storage</h3>
+                    <p>Access files from Dropbox, OneDrive, or other cloud services</p>
+                    <button class="btn btn-secondary">Connect Cloud</button>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Features Section -->
-    <section id="features" class="py-5 bg-light">
+    <section class="section">
         <div class="container">
-            <div class="text-center mb-5">
-                <h2 class="section-title">Powerful Features</h2>
-                <p class="lead">Everything you need to transform documents into effective learning materials</p>
-            </div>
-            
-            <div class="row g-4">
-                <div class="col-md-6 col-lg-4">
+            <div class="features">
+                <div class="section-header">
+                    <h2 class="section-title">Why Choose CompressHub?</h2>
+                    <p class="section-subtitle">Powerful compression technology with user-friendly features</p>
+                </div>
+                
+                <div class="features-grid">
                     <div class="feature-card">
                         <div class="feature-icon">
-                            <i class="fas fa-file-import"></i>
+                            <i class="fas fa-bolt"></i>
                         </div>
-                        <h4>Multiple Format Support</h4>
-                        <p>Upload PDFs, Word documents, or plain text files. Our system extracts text from any format effortlessly.</p>
+                        <div class="feature-text">
+                            <h3>Lightning Fast</h3>
+                            <p>Our optimized algorithms compress files in seconds, not minutes. Process large batches quickly.</p>
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-6 col-lg-4">
                     <div class="feature-card">
                         <div class="feature-icon">
-                            <i class="fas fa-brain"></i>
+                            <i class="fas fa-lock"></i>
                         </div>
-                        <h4>Smart Q&A Generation</h4>
-                        <p>Our AI identifies key concepts and generates relevant questions with accurate answers automatically.</p>
+                        <div class="feature-text">
+                            <h3>Secure & Private</h3>
+                            <p>All files are processed securely and automatically deleted after 24 hours. Your privacy is guaranteed.</p>
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-6 col-lg-4">
                     <div class="feature-card">
                         <div class="feature-icon">
-                            <i class="fas fa-download"></i>
+                            <i class="fas fa-infinity"></i>
                         </div>
-                        <h4>Flexible Export Options</h4>
-                        <p>Download as PDF for printing or editable Word documents to customize further. Multiple format options available.</p>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4">
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-share-alt"></i>
+                        <div class="feature-text">
+                            <h3>No File Limits</h3>
+                            <p>Compress as many files as you need with no restrictions. Perfect for large projects.</p>
                         </div>
-                        <h4>Easy Sharing</h4>
-                        <p>Share your Q&A sets via email, social media, or generate shareable links for collaboration.</p>
                     </div>
-                </div>
-                <div class="col-md-6 col-lg-4">
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-layer-group"></i>
-                        </div>
-                        <h4>Multiple Output Formats</h4>
-                        <p>Choose from detailed Q&A, concise flashcards, or multiple choice questions based on your needs.</p>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4">
                     <div class="feature-card">
                         <div class="feature-icon">
                             <i class="fas fa-mobile-alt"></i>
                         </div>
-                        <h4>Fully Responsive</h4>
-                        <p>Works perfectly on all devices - desktop, tablet, or mobile. Convert documents on the go.</p>
+                        <div class="feature-text">
+                            <h3>Fully Responsive</h3>
+                            <p>Access our tools from any device - desktop, tablet, or smartphone. Always optimized.</p>
+                        </div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <div class="feature-text">
+                            <h3>Quality Preservation</h3>
+                            <p>Smart compression technology reduces file size while maintaining maximum quality.</p>
+                        </div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-share-alt"></i>
+                        </div>
+                        <div class="feature-text">
+                            <h3>Easy Sharing</h3>
+                            <p>Download compressed files or share directly via email, social media, or cloud services.</p>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- How It Works Section -->
-    <section id="how-it-works" class="py-5">
-        <div class="container">
-            <div class="text-center mb-5">
-                <h2 class="section-title">How It Works</h2>
-                <p class="lead">Transform your documents in just three simple steps</p>
-            </div>
-            
-            <div class="row">
-                <div class="col-lg-10 mx-auto">
-                    <div class="how-it-works-step">
-                        <div class="step-number">1</div>
-                        <h3>Upload Your Document</h3>
-                        <p>Start by uploading your PDF, Word document, or text file. You can drag and drop, browse your files, or paste a URL to a document online. Our system supports all major document formats with secure processing.</p>
-                    </div>
-                    
-                    <div class="how-it-works-step">
-                        <div class="step-number">2</div>
-                        <h3>Customize Your Output</h3>
-                        <p>Choose your preferred Q&A format - detailed explanations, concise flashcards, or multiple choice questions. Select the complexity level and specify any particular focus areas you want emphasized in the generated questions.</p>
-                    </div>
-                    
-                    <div class="how-it-works-step">
-                        <div class="step-number">3</div>
-                        <h3>Download & Share</h3>
-                        <p>Download your customized Q&A set as a PDF or editable Word document. Share with classmates via email or social media, or generate a private link for collaborative studying. All your generated sets are saved for future access.</p>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="text-center mt-4">
-                <a href="#upload" class="btn btn-primary btn-lg px-4">
-                    <i class="fas fa-play me-2"></i>See Live Demo
-                </a>
             </div>
         </div>
     </section>
 
     <!-- Testimonials Section -->
-    <section id="testimonials" class="py-5 bg-light">
+    <section class="section">
         <div class="container">
-            <div class="text-center mb-5">
+            <div class="section-header">
                 <h2 class="section-title">What Our Users Say</h2>
-                <p class="lead">Trusted by students, educators, and professionals worldwide</p>
+                <p class="section-subtitle">Thousands of satisfied users trust our compression tools daily</p>
             </div>
             
-            <div class="row">
-                <div class="col-lg-10 mx-auto">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="testimonial-card">
-                                <div class="d-flex align-items-center mb-3">
-                                    <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="User" class="testimonial-avatar me-3">
-                                    <div>
-                                        <h5 class="mb-0">Sarah Johnson</h5>
-                                        <small class="text-muted">Medical Student</small>
-                                    </div>
-                                </div>
-                                <p>"This tool has revolutionized how I study. Converting dense medical textbooks into Q&A format helps me retain information so much better!"</p>
-                                <div class="text-warning">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                </div>
-                            </div>
+            <div class="testimonials">
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        "CompressHub reduced our company's storage costs by 65%! The PDF compression is incredible - no quality loss even at 50% size reduction."
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">MJ</div>
+                        <div class="author-info">
+                            <h4>Michael Johnson</h4>
+                            <p>CTO, TechSolutions Inc.</p>
                         </div>
-                        <div class="col-md-4">
-                            <div class="testimonial-card">
-                                <div class="d-flex align-items-center mb-3">
-                                    <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="User" class="testimonial-avatar me-3">
-                                    <div>
-                                        <h5 class="mb-0">David Chen</h5>
-                                        <small class="text-muted">University Professor</small>
-                                    </div>
-                                </div>
-                                <p>"I use Text2QA to create practice questions for my students. It saves me hours of work and the questions are surprisingly relevant."</p>
-                                <div class="text-warning">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star-half-alt"></i>
-                                </div>
-                            </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        "As a photographer, I was skeptical about image compression tools. CompressHub proved me wrong! My portfolio images look perfect at half the size."
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">SR</div>
+                        <div class="author-info">
+                            <h4>Sarah Reynolds</h4>
+                            <p>Professional Photographer</p>
                         </div>
-                        <div class="col-md-4">
-                            <div class="testimonial-card">
-                                <div class="d-flex align-items-center mb-3">
-                                    <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="User" class="testimonial-avatar me-3">
-                                    <div>
-                                        <h5 class="mb-0">Emily Rodriguez</h5>
-                                        <small class="text-muted">Law Student</small>
-                                    </div>
-                                </div>
-                                <p>"The flashcard format is perfect for memorizing case law. I've shared this with my entire study group and we all love it!"</p>
-                                <div class="text-warning">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                </div>
-                            </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        "The batch processing feature saved me hours of work. I compressed 200 product images in under 5 minutes. This tool is a game-changer!"
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">DR</div>
+                        <div class="author-info">
+                            <h4>David Rodriguez</h4>
+                            <p>E-commerce Manager</p>
                         </div>
                     </div>
                 </div>
@@ -635,149 +875,96 @@
     </section>
 
     <!-- CTA Section -->
-    <section class="py-5">
+    <section class="section">
         <div class="container">
             <div class="cta-section">
-                <div class="row justify-content-center">
-                    <div class="col-lg-8 text-center">
-                        <h2 class="mb-4">Ready to Transform Your Documents?</h2>
-                        <p class="lead mb-5">Join thousands of users who are enhancing their learning experience with Text2QA</p>
-                        <a href="#upload" class="btn btn-light btn-lg px-4 me-2">
-                            <i class="fas fa-file-upload me-2"></i>Try It Free
-                        </a>
-                        <a href="#pricing" class="btn btn-outline-light btn-lg px-4">
-                            <i class="fas fa-crown me-2"></i>See Premium Plans
-                        </a>
-                    </div>
-                </div>
+                <h2>Ready to Reduce Your File Sizes?</h2>
+                <p>Join thousands of users who save time and storage space with our powerful compression tools</p>
+                <button class="btn btn-primary" style="background: white; color: var(--primary);">
+                    <i class="fas fa-compress-alt"></i> Start Compressing Now
+                </button>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="footer">
+    <footer>
         <div class="container">
-            <div class="row">
-                <div class="col-lg-4 mb-4">
-                    <h3 class="text-white mb-4">
-                        <i class="fas fa-question-circle me-2"></i>Text2<span>QA</span>
-                    </h3>
-                    <p>Transforming documents into interactive learning materials since 2023. Our mission is to make studying more effective and efficient for everyone.</p>
-                    <div class="mt-4">
-                        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>CompressHub</h3>
+                    <p>The ultimate file compression solution for all your needs. Reduce file sizes while maintaining quality.</p>
+                    <div style="display: flex; gap: 15px; margin-top: 1.5rem;">
+                        <a href="#" style="color: white; font-size: 1.3rem;"><i class="fab fa-facebook"></i></a>
+                        <a href="#" style="color: white; font-size: 1.3rem;"><i class="fab fa-twitter"></i></a>
+                        <a href="#" style="color: white; font-size: 1.3rem;"><i class="fab fa-instagram"></i></a>
+                        <a href="#" style="color: white; font-size: 1.3rem;"><i class="fab fa-linkedin"></i></a>
                     </div>
                 </div>
-                <div class="col-lg-2 col-md-4 mb-4">
-                    <h5 class="text-white mb-4">Quick Links</h5>
-                    <ul class="list-unstyled">
-                        <li class="mb-2"><a href="#" class="text-white-50">Home</a></li>
-                        <li class="mb-2"><a href="#features" class="text-white-50">Features</a></li>
-                        <li class="mb-2"><a href="#how-it-works" class="text-white-50">How It Works</a></li>
-                        <li class="mb-2"><a href="#pricing" class="text-white-50">Pricing</a></li>
-                        <li class="mb-2"><a href="#" class="text-white-50">Blog</a></li>
+                
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Image Compression</a></li>
+                        <li><a href="#">PDF Compression</a></li>
+                        <li><a href="#">Video Compression</a></li>
+                        <li><a href="#">Pricing</a></li>
                     </ul>
                 </div>
-                <div class="col-lg-2 col-md-4 mb-4">
-                    <h5 class="text-white mb-4">Support</h5>
-                    <ul class="list-unstyled">
-                        <li class="mb-2"><a href="#" class="text-white-50">FAQ</a></li>
-                        <li class="mb-2"><a href="#" class="text-white-50">Help Center</a></li>
-                        <li class="mb-2"><a href="#" class="text-white-50">Contact Us</a></li>
-                        <li class="mb-2"><a href="#" class="text-white-50">Privacy Policy</a></li>
-                        <li class="mb-2"><a href="#" class="text-white-50">Terms of Service</a></li>
+                
+                <div class="footer-section">
+                    <h3>Tools</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">JPG Compressor</a></li>
+                        <li><a href="#">PNG Compressor</a></li>
+                        <li><a href="#">PDF Compressor</a></li>
+                        <li><a href="#">MP3 Compressor</a></li>
+                        <li><a href="#">MP4 Compressor</a></li>
                     </ul>
                 </div>
-                <div class="col-lg-4 col-md-4 mb-4">
-                    <h5 class="text-white mb-4">Newsletter</h5>
-                    <p>Subscribe to get updates on new features and learning tips.</p>
-                    <form class="mt-3">
-                        <div class="input-group">
-                            <input type="email" class="form-control" placeholder="Your email">
-                            <button class="btn btn-primary" type="submit">Subscribe</button>
-                        </div>
-                    </form>
+                
+                <div class="footer-section">
+                    <h3>Support</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
                 </div>
             </div>
-            <hr class="mt-4 mb-4" style="border-color: rgba(255,255,255,0.1);">
-            <div class="text-center">
-                <p class="mb-0 text-white-50">&copy; 2023 Text2QA. All rights reserved.</p>
+            
+            <div class="copyright">
+                <p>&copy; 2023 CompressHub. All rights reserved. Designed with ❤️ for file optimization enthusiasts.</p>
             </div>
         </div>
     </footer>
 
-    <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Upload functionality
-        const dropzone = document.getElementById('dropzone');
-        const fileInput = document.getElementById('fileInput');
-        const convertBtn = document.getElementById('convertBtn');
-        const fileName = document.getElementById('fileName');
-        
-        // Handle drag and drop
-        dropzone.addEventListener('dragover', (e) => {
-            e.preventDefault();
-            dropzone.style.borderColor = '#4361ee';
-            dropzone.style.backgroundColor = 'rgba(67, 97, 238, 0.05)';
-        });
-        
-        dropzone.addEventListener('dragleave', () => {
-            dropzone.style.borderColor = '#ced4da';
-            dropzone.style.backgroundColor = '#f8f9fa';
-        });
-        
-        dropzone.addEventListener('drop', (e) => {
-            e.preventDefault();
-            dropzone.style.borderColor = '#ced4da';
-            dropzone.style.backgroundColor = '#f8f9fa';
+        // Simple animations for file cards
+        document.addEventListener('DOMContentLoaded', function() {
+            const fileCards = document.querySelectorAll('.file-card, .file-type');
             
-            if (e.dataTransfer.files.length) {
-                handleFileUpload(e.dataTransfer.files[0]);
-            }
-        });
-        
-        // Handle file input change
-        fileInput.addEventListener('change', () => {
-            if (fileInput.files.length) {
-                handleFileUpload(fileInput.files[0]);
-            }
-        });
-        
-        // Handle file upload
-        function handleFileUpload(file) {
-            const validTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'text/plain'];
+            fileCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-10px)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
             
-            if (!validTypes.includes(file.type)) {
-                alert('Please upload a valid PDF, Word, or text file.');
-                return;
-            }
-            
-            // Update UI
-            dropzone.innerHTML = `
-                <i class="fas fa-check-circle fa-2x mb-2 text-success"></i>
-                <p class="mb-0">${file.name}</p>
-                <small class="text-muted">${(file.size / 1024 / 1024).toFixed(2)} MB</small>
-            `;
-            
-            fileName.textContent = `Selected: ${file.name}`;
-            convertBtn.disabled = false;
-        }
-        
-        // Convert button click
-        convertBtn.addEventListener('click', () => {
-            alert('In a complete implementation, this would process the document and generate Q&A pairs. For this demo, we\'re showing the UI flow only.');
-            
-            // Simulate processing
-            convertBtn.disabled = true;
-            convertBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>Processing...';
-            
-            setTimeout(() => {
-                convertBtn.innerHTML = '<i class="fas fa-check me-2"></i>Conversion Complete!';
-                // Here you would typically redirect to the results page or show the results
-            }, 2000);
+            // Add animation to CTA button
+            const ctaBtn = document.querySelector('.cta-section .btn');
+            setInterval(() => {
+                ctaBtn.style.transform = 'scale(1.05)';
+                setTimeout(() => {
+                    ctaBtn.style.transform = 'scale(1)';
+                }, 600);
+            }, 3000);
         });
     </script>
 </body>
